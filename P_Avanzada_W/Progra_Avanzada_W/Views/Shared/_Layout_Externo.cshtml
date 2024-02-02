@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html class="no-js " lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+
+
+    <!-- Favicon-->
+
+    <link href="~/lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+
+    <link href="~/lib/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/css/main.css" rel="stylesheet" />
+    <link href="~/lib/css/authentication.css" rel="stylesheet" />
+    <link href="~/lib/css/color_skins.css" rel="stylesheet" />
+</head>
+<body class="theme-orange">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <p>Please wait...</p>
+
+
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+        <script src="~/lib/bundles/libscripts.bundle.js"></script>
+        <script src="~/lib/bundles/vendorscripts.bundle.js"></script>
+        <script src="~/lib/bundles/mainscripts.bundle.js"></script>
+
+</body>
+</html>
