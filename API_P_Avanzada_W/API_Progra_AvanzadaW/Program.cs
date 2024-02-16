@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Text;
 using API_Progra_AvanzadaW.Services;
 using API_Progra_AvanzadaW.Models;
@@ -13,52 +12,53 @@ string SecretKey = config["settings:SecretKey"].ToString();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSingleton<IUsuarios, Usuarios>();
 
+//ADD INTERFACES
+builder.Services.AddSingleton<IUtilitariosModel, UtilitariosModel>();
+
+//ADD JWT
 builder.Services.AddSwaggerGen(options =>
 {
-	options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-	{
-		Description = "Standard Authorization header using the Bearer scheme",
-		In = ParameterLocation.Header,
-		Name = "Authorization",
-		Type = SecuritySchemeType.ApiKey
-	});
-	options.OperationFilter<SecurityRequirementsOperationFilter>();
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization header using the Bearer scheme",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(options =>
-	{
-		options.TokenValidationParameters = new TokenValidationParameters
-		{
-			ValidateAudience = false,
-			ValidateIssuer = false,
-			ValidateIssuerSigningKey = true,
-			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey)),
-			ValidateLifetime = true,
-			LifetimeValidator = (DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters) =>
-			{
-				if (expires != null)
-				{
-					return expires > DateTime.UtcNow;
-				}
-				return false;
-			}
-		};
-	});
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey)),
+            ValidateLifetime = true,
+            LifetimeValidator = (DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters) =>
+            {
+                if (expires != null)
+                {
+                    return expires > DateTime.UtcNow;
+                }
+                return false;
+            }
+        };
+    });
 
 var app = builder.Build();
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.MapControllers();
 
-app.UseSwagger();
-app.UseSwaggerUI(options =>
-{
-	options.SwaggerEndpoint("/swagger/v1/swagger.json", "API Documentation");
-});
+app.MapControllers();
 
 app.Run();

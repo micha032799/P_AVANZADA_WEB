@@ -1,15 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Progra_Avanzada_W.Models;
+using Progra_Avanzada_W.Services;
 using System.Diagnostics;
 
 namespace Progra_Avanzada_W.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IUsuarioModel _usuarioModel;
+        public HomeController(UsuarioModel usuarioModel)
         {
-
+            _usuarioModel = usuarioModel;
         }
+
         [Seguridad]
         [HttpGet]
         public IActionResult PantallaPrincipal()
@@ -25,10 +28,20 @@ namespace Progra_Avanzada_W.Controllers
         }
 
         [HttpGet]
-        public IActionResult Registrarse()
+        public IActionResult RegistrarUsuario()
+        {
+            var resp = _usuarioModel.RegistrarUsuario(entidad);
+
+            if (resp > 0)
+                return RedirectToAction();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RegistrarUsuario(Usuario entidad)
         {
             return View();
         }
-   
     }
 }
