@@ -2,8 +2,14 @@
 
 namespace Progra_Avanzada_W.Services
 {
-    public class IUsuarioModel
+    public interface IUsuarioModel
     {
-        public int RegistrarUsuario(Usuario entidad);
+        Respuesta? RegistrarUsuario(Usuario entidad);
+
+        UsuarioRespuesta? IniciarSesion(Usuario entidad);
+
+        UsuarioRespuesta? RecuperarAcceso(Usuario entidad);
+
+        UsuarioRespuesta? CambiarContrasenna(Usuario entidad);
     }
 }

@@ -1,4 +1,5 @@
 using Progra_Avanzada_W.Entidades;
+using Progra_Avanzada_W.Models;
 using Progra_Avanzada_W.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddSession();
 builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<IUsuarioModel, UsuarioModel>();
+builder.Services.AddSingleton<IProductoModel, ProductoModel>();
+builder.Services.AddSingleton<IUtilitariosModel, UtilitariosModel>();
 
 var app = builder.Build();
 

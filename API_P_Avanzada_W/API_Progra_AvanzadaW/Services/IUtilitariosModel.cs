@@ -2,7 +2,13 @@ namespace API_Progra_AvanzadaW.Services
 {
 	public interface IUtilitariosModel
 	{
-		public string GenerarToken(string Cedula);
+        string Encrypt(string texto);
 
-	}
+        string? GenerarToken(string Correo);
+
+        string GenerarCodigo();
+
+        void EnviarCorreo(string Destinatario, string Asunto, string Mensaje);
+
+    }
 }
