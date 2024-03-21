@@ -112,8 +112,44 @@
         </div>
     </section>
 
+    <section>
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+        @if (Context.Session.GetString("IdRol") == "2")
+        {
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                        Mantenimientos
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="@Url.Action("ConsultarProductos","Producto")" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Productos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tables/data.html" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>DataTables</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tables/jsgrid.html" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>jsGrid</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
 
+    </ul>
+    </section>
     <section id="about" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row">

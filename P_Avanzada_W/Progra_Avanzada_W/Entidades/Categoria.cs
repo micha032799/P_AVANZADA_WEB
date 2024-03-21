@@ -1,4 +1,4 @@
-namespace API_Progra_AvanzadaW.Entidades
+namespace Progra_Avanzada_W.Entidades
 {
     public class Categoria
     {

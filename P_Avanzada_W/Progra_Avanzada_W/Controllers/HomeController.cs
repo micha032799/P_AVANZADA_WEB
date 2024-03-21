@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Progra_Avanzada_W.Entidades;
 using Progra_Avanzada_W.Models;
 using Progra_Avanzada_W.Services;
-using System.Diagnostics;
+using Progra_Avanzada_W.Entidades;
 
 namespace Progra_Avanzada_W.Controllers
 {
@@ -28,6 +28,8 @@ namespace Progra_Avanzada_W.Controllers
                 HttpContext.Session.SetString("Correo", resp?.Dato?.Correo!);
                 HttpContext.Session.SetString("Nombre", resp?.Dato?.NombreUsuario!);
                 HttpContext.Session.SetString("Token", resp?.Dato?.Token!);
+                HttpContext.Session.SetString("IdRol", resp?.Dato?.IdRol.ToString()!);
+                HttpContext.Session.SetString("NombreRol", resp?.Dato?.NombreRol!);
 
                 if ((bool)(resp?.Dato?.EsTemporal!))
                 {

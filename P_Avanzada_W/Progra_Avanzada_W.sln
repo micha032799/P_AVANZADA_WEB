@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Progra_Avanzada_W", "Progra_Avanzada_W\Progra_Avanzada_W.csproj", "{CD215EB1-94FE-402E-B335-5FC9EC089426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Progra_Avanzada_W", "Progra_Avanzada_W\Progra_Avanzada_W.csproj", "{CD215EB1-94FE-402E-B335-5FC9EC089426}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API_Progra_AvanzadaW", "..\API_P_Avanzada_W\API_Progra_AvanzadaW\API_Progra_AvanzadaW.csproj", "{603D9067-11FC-422F-9538-EEA135CA7F3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CD215EB1-94FE-402E-B335-5FC9EC089426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD215EB1-94FE-402E-B335-5FC9EC089426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD215EB1-94FE-402E-B335-5FC9EC089426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{603D9067-11FC-422F-9538-EEA135CA7F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{603D9067-11FC-422F-9538-EEA135CA7F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{603D9067-11FC-422F-9538-EEA135CA7F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{603D9067-11FC-422F-9538-EEA135CA7F3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
