@@ -6,6 +6,7 @@ using API_Progra_AvanzadaW.Entidades;
 using System.Data.SqlClient;
 using System.Data;
 using Dapper;
+using API_Progra_AvanzadaW.Entidades;
 
 namespace API_Progra_AvanzadaW.Controllers
 {

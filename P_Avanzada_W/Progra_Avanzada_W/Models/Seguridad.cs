@@ -5,18 +5,18 @@ namespace Progra_Avanzada_W.Models
 {
     public class Seguridad : ActionFilterAttribute
     {
-        //public override void OnActionExecuting(ActionExecutingContext context)
-        //{
-        //    if (context.HttpContext.Session.GetString("Login") == null)
-        //    {
-        //        context.Result = new RedirectToRouteResult(new RouteValueDictionary
-        //        {
-        //            { "controller","Home" },
-        //            { "action","IniciarSesion" }
-        //        });
-        //    }
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (context.HttpContext.Session.GetString("Login") == null)
+            {
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary
+                {
+                    { "controller","Home" },
+                    { "action","IniciarSesion" }
+                });
+            }
 
-        //    base.OnActionExecuting(context);
-        //}
+            base.OnActionExecuting(context);
+        }
     }
 }

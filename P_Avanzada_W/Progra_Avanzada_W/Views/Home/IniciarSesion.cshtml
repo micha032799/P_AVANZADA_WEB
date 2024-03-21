@@ -1,49 +1,57 @@
-﻿
+﻿@model Progra_Avanzada_W.Entidades.Usuario
+
 @{
     Layout = "~/Views/Shared/_Layout_Externo.cshtml";
 }
 
-    <div class="authentication">
+<div class="hold-transition login-page">
+    <div class="login-box">
+
         <div class="card">
-            <div class="body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="header slideDown">
-                
-                            <h1>Restaurante</h1>
-                        </div>
-                    </div>
-                    <form class="col-lg-12" id="sign_in" method="POST">
-                        <h5 class="title">Ingrese los datos</h5>
-                        <br />
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input type="text" class="form-control">
-                                <label class="form-label">Correo</label>
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Inicio de sesión</p>
+
+                @using (Html.BeginForm("IniciarSesion", "Home", FormMethod.Post))
+                {
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @placeholder = "Correo Electrónico", @type = "Email", @required = "true" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
                             </div>
                         </div>
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input type="password" class="form-control">
-                                <label class="form-label">Contraseña</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(m => m.Contrasenna, new { @class = "form-control", @placeholder = "Contraseña", @type = "Password", @required = "true" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                    </form>
-                    <div class="col-lg-12">
-
-                    
-                    <a href="@Url.Action("IniciarSesion", "Home")" class="btn btn-raised btn-default waves-effect" style="margin-left:20px">Iniciar Sesion</a>
-
-                     <a href="@Url.Action("Registrarse", "Home")" class="btn btn-raised btn-default waves-effect" style="margin-left:20px">Registrarse</a>
-
                     </div>
 
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
 
-                    <div class="col-lg-12 m-t-20">
-                        <a class="" href="forgot-password.html">Olvidaste tu contraseña?</a>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-warning btn-block">Ingresar</button>
+                        </div>
                     </div>
+                }
+
+                <div style="text-align:center; margin-top:2%">
+                    <a href="@Url.Action("RecuperarAcceso","Home")" class="text-center">¿Olvidaste la contraseña?</a>
+                </div>
+                <div style="text-align:center; margin-top:2%">
+                    <a href="@Url.Action("RegistrarUsuario","Home")" class="text-center">¿No tienes una cuenta?</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
