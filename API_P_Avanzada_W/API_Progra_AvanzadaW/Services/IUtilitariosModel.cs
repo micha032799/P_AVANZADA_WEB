@@ -4,7 +4,9 @@ namespace API_Progra_AvanzadaW.Services
 	{
         string Encrypt(string texto);
 
-        string? GenerarToken(string Correo);
+        string Decrypt(string texto);
+
+        string? GenerarToken(long IdUsuario);
 
         string GenerarCodigo();
 

@@ -5,6 +5,8 @@ namespace API_Progra_AvanzadaW.Entidades
     public class Producto
     {
         public long IdProducto { get; set; }
+
+        public string? NombreProducto { get; set; }
         public int Inventario { get; set; }
         public long IdCategoria { get; set; }
         public int CantidadMinima { get; set; }

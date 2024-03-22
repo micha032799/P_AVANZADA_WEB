@@ -11,5 +11,9 @@ namespace Progra_Avanzada_W.Services
         UsuarioRespuesta? RecuperarAcceso(Usuario entidad);
 
         UsuarioRespuesta? CambiarContrasenna(Usuario entidad);
+
+        UsuarioRespuesta? ConsultarUsuario();
+
+        Respuesta? ActualizarPerfil(Usuario entidad);
     }
 }

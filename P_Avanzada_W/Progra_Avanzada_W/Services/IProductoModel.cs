@@ -4,10 +4,12 @@ namespace Progra_Avanzada_W.Services
 {
         public interface IProductoModel
         {
-            ProductoRespuesta? ConsultarProductos();
-            CategoriaRespuesta? ConsultarCategorias();
-            Respuesta? RegistrarProducto(Producto entidad);
-            Respuesta? EliminarProducto(long IdProducto);
+        ProductoRespuesta? ConsultarProductos();
+        ProductoRespuesta? ConsultarProducto(long IdProducto);
+        CategoriaRespuesta? ConsultarCategorias();
+        Respuesta? RegistrarProducto(Producto entidad);
+        Respuesta? ActualizarProducto(Producto entidad);
+        Respuesta? EliminarProducto(long IdProducto);
         }
     
 }
