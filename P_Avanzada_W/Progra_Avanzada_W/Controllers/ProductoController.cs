@@ -56,7 +56,7 @@ namespace Progra_Avanzada_W.Controllers
             else
             {
                 ViewBag.MsjPantalla = resp?.Mensaje;
-                return View();
+                return RedirectToAction("ConsultarProductos", "Producto");
             }
         }
 

@@ -45,7 +45,7 @@
                 </button>
 
          
-                <a href="index.html" class="navbar-brand">Restaurante <span>.</span> El Dragón</a>
+                <a href="@Url.Action("PantallaPrincipal", "Home")" class="navbar-brand">Restaurante <span>.</span> El Dragón</a>
             </div>
 
      
@@ -79,7 +79,6 @@
                             <div class="col-md-8 col-sm-12">
                                 <h3>Restaurante Restaurante &amp; Restaurante</h3>
                                 <h1>Nuestra misión es que tengas una buena experiencia</h1>
-                                <a href="#team" class="section-btn btn btn-default smoothScroll">Conoce a nuestros Chef</a>
                             </div>
                         </div>
                     </div>
@@ -91,7 +90,6 @@
                             <div class="col-md-8 col-sm-12">
                                 <h3>Nuestros desayunos son perfectos</h3>
                                 <h1>Las mejores cenas!</h1>
-                                <a href="#menu" class="section-btn btn btn-default smoothScroll">Menú</a>
                             </div>
                         </div>
                     </div>
@@ -103,7 +101,6 @@
                             <div class="col-md-8 col-sm-12">
                                 <h3>Nuevo restaurante en la ciudad</h3>
                                 <h1>Disfruta de nuestros menús especiales todos los domingos y viernes</h1>
-                                <a href="#contact" class="section-btn btn btn-default smoothScroll">Reserva</a>
                             </div>
                         </div>
                     </div>
@@ -113,280 +110,16 @@
         </div>
     </section>
 
-    <section>
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-        @if (Context.Session.GetString("IdRol") == "2")
-        {
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-table"></i>
-                    <p>
-                        Mantenimientos
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="@Url.Action("ConsultarProductos","Producto")" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Productos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../tables/data.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>DataTables</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../tables/jsgrid.html" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>jsGrid</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        }
-
-    </ul>
-    </section>
-    <section id="about" data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="about-info">
-                        <div class="section-title wow fadeInUp" data-wow-delay="0.2s">
-                            <h4>Nuestra historia</h4>
-                            <h2>Hemos estado preparando comidas deliciosas desde 1999.</h2>
-                        </div>
-
-                        <div class="wow fadeInUp" data-wow-delay="0.4s">
-                            <p>"Nuestros productos son 100% orgánicos y de muy buena calidad, ya que provienen de ingredientes frescos del más alto nivel."</p>
-                            <p>"Nuestras recetas son familiares, en ellas podemos disfrutar de excelentes combinaciones y sabores exquisitos."Gracias.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="wow fadeInUp about-image" data-wow-delay="0.6s">
-                        <img src="~/lib/images/about-image.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="team" data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-12">
-                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                        <h2>Nuestros chef</h2>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="~/lib/images/team-image1.jpg" class="img-responsive" alt="">
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Estoy para servirte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-linkedin-square"></a></li>
-                                    <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Linda Rosales</h3>
-                        <p>"Soy un especialista en mariscos y pescados con una profunda pasión por los productos del mar"</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="~/lib/images/team-image2.jpg" class="img-responsive" alt="">
-
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Es un gusto atenderte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
-                                    <li><a href="#" class="fa fa-flickr"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Daniela Ureña</h3>
-                        <p>"Soy un especialista en comida asiática"</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <img src="~/lib/images/team-image3.jpg" class="img-responsive" alt="">
-                        
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Es un gusto atenderte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-github"></a></li>
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Isabella Arias</h3>
-                        <p>"Soy un especialista en repostería"</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="menu" data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-12">
-                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                        <h2>Menú</h2>
-                        <h4>Es hora de disfrutar</h4>
-                    </div>
-                </div>
+        <div class="container-fluid" style="margin-top:100px">
+            <div class="content-wrapper" style="align-content:center">
                 <div class="container">
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>
                 </div>
-
-                <div class="col-md-4 col-sm-6">
-                  
-                    <div class="menu-thumb">
-                        <a href="images/menu-image1.jpg" class="image-popup" title="American Breakfast">
-                            <img src="~/lib/images/menu-image1.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Desayuno Americano</h3>
-                                    <p>Tomate / Huevos / Sándwich</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$25</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-        
-                    <div class="menu-thumb">
-                        <a href="images/menu-image2.jpg" class="image-popup" title="Self-made Salad">
-                            <img src="~/lib/images/menu-image2.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Ensalada</h3>
-                                    <p>Lechuga / Tomate / Limón</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$18</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
- 
-                    <div class="menu-thumb">
-                        <a href="images/menu-image3.jpg" class="image-popup" title="Chinese Noodle">
-                            <img src="~/lib/images/menu-image3.jpg" class="img-responsive" alt="">
-
-                            
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Fideos chinos</h3>
-                                    <p>Fideos / Pollo / Vegetales</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$34</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-    
-                    <div class="menu-thumb">
-                        <a href="images/menu-image4.jpg" class="image-popup" title="Rice Soup">
-                            <img src="~/lib/images/menu-image4.jpg" class="img-responsive" alt="">
-
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Sopa de pollo </h3>
-                                    <p>Vegetales / Pollo</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$28</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-        
-                    <div class="menu-thumb">
-                        <a href="images/menu-image5.jpg" class="image-popup" title="Project title">
-                            <img src="~/lib/images/menu-image5.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Hamburguesa</h3>
-                                    <p>Carne angus / Papas fritas</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$46</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-       
-                    <div class="menu-thumb">
-                        <a href="images/menu-image6.jpg" class="image-popup" title="Project title">
-                            <img src="~/lib/images/menu-image6.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Pasta en salsa alfredo</h3>
-                                    <p>Hongos / Queso</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$30</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-
             </div>
         </div>
-    </section>
+  
 
     <footer id="footer" data-stellar-background-ratio="0.5">
         <div class="container">

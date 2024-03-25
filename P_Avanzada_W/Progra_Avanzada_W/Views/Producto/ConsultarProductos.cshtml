@@ -1,8 +1,8 @@
 ﻿@model List<Progra_Avanzada_W.Entidades.Producto>
 
 @{
-    ViewData["Title"] = "AgregarProducto";
-    Layout = "~/Views/Shared/_Layout_Externo.cshtml";
+    ViewData["Title"] = "Consultar Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -48,11 +48,11 @@
                                 <td>@item.CantidadMinima</td>
                                 <td>
                                     <a class="btn btn-primary" href="@Url.Action("ActualizarProducto","Producto", new { id = item.IdProducto})">
-                                        <i class="fa fa-pencil-square-o faa-tada animated"></i>
+                                        <i class="fa-solid fa-pen-to-square" style="color: #383838;"></i>
                                     </a>
                                     <button type="button" class="btn btn-primary passingID" data-toggle="modal" data-target="#exampleModal"
                                             data-id="@item.IdProducto" data-name="@item.NombreProducto">
-                                        <i class="fa fa-trash-o faa-wrench animated"></i>
+                                        <i class="fa-solid fa-trash" style="color: #383838;"></i>
                                     </button>
                                 </td>
                             </tr>
