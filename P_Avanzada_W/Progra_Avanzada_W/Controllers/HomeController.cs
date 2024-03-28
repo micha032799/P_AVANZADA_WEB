@@ -107,7 +107,7 @@ namespace Progra_Avanzada_W.Controllers
         {
             if (entidad.Contrasenna?.Trim() == entidad.ContrasennaTemporal?.Trim())
             {
-                ViewBag.MsjPantalla = "Debe utilizar una contraseña distinta";
+                ViewBag.MsjPantalla = "Debe utilizar una contraseÃ±a distinta";
                 return View();
             }
 

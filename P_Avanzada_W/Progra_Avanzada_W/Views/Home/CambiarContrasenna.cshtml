@@ -1,9 +1,43 @@
 ﻿@model Progra_Avanzada_W.Entidades.Usuario
-
 @{
-    ViewData["Title"] = "Cambiar Contraseña";
     Layout = "~/Views/Shared/_Layout_Externo.cshtml";
 }
 
-<h2>Cambiar Contraseña</h2>
+@using (Html.BeginForm("CambiarContrasenna", "Home", FormMethod.Post, new { @class = "pt-3" }))
+{
+    <p class="font-weight-bold login-box-msg">Cambio de contraseña</p>
 
+    <div class="form-group col-md-15 mb-3">
+        <div class="form-line">
+            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control form-control-lg", @placeholder = "Correo Electrónico", @type = "email", @required = "true", @readonly = "true" })
+        </div>
+    </div>
+    <div class="form-group col-md-15 mb-3">
+        <div class="form-line">
+            @Html.TextBoxFor(m => m.ContrasennaTemporal, new { @class = "form-control form-control-lg", @placeholder = "Contraseña Temporal", @type = "password", @required = "true" })
+        </div>
+    </div>
+    <div class="form-group col-md-15 mb-3">
+        <div class="form-line">
+            @Html.TextBoxFor(m => m.Contrasenna, new
+                {
+                    @class = "form-control form-control-lg",
+                    @placeholder = "Contraseña Nueva",
+                    @type = "password",
+                    @required = "true",
+                    @pattern = "^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W]).{6,20})"
+                })
+        </div>
+    </div>
+
+    @if (ViewBag.MsjPantalla != null)
+    {
+        <div class="alert alert-warning" role="alert" style="text-align:center">
+            @ViewBag.MsjPantalla
+        </div>
+    }
+
+    <div class="mt-3 text-center mt-4">
+        <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-bold auth-form-btn" style="text-decoration:none; font-size: 100%; color:black;" value="Procesar">
+    </div>
+}
