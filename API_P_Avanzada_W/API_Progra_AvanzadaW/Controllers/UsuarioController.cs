@@ -53,7 +53,7 @@ namespace API_Progra_AvanzadaW.Controllers
             {
                 Respuesta respuesta = new Respuesta();
 
-                var result = db.Execute("RegistrarUsuario",
+                 var result = db.Execute("RegistrarUsuario",
                     new { entidad.Correo, entidad.Contrasenna, entidad.NombreUsuario },
                     commandType: CommandType.StoredProcedure);
 

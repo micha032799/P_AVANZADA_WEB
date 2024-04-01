@@ -20,30 +20,6 @@ namespace Progra_Avanzada_W.Models
             return null;
         }
 
-        public ProductoRespuesta? ConsultarProducto(long IdProducto)
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/ConsultarProducto?IdProducto=" + IdProducto;
-            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
-            var resp = _http.GetAsync(url).Result;
-
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<ProductoRespuesta>().Result;
-
-            return null;
-        }
-
-        public CategoriaRespuesta? ConsultarCategorias()
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/ConsultarCategorias";
-            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
-            var resp = _http.GetAsync(url).Result;
-
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<CategoriaRespuesta>().Result;
-
-            return null;
-        }
-
         public Respuesta? RegistrarProducto(Producto entidad)
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/RegistrarProducto";
@@ -57,9 +33,9 @@ namespace Progra_Avanzada_W.Models
             return null;
         }
 
-        public Respuesta? ActualizarProducto(Producto entidad)
+        public Respuesta? EditarProducto(Producto entidad)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/ActualizarProducto";
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/EditarProducto";
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
             JsonContent body = JsonContent.Create(entidad);
             var resp = _http.PutAsync(url, body).Result;
@@ -70,9 +46,9 @@ namespace Progra_Avanzada_W.Models
             return null;
         }
 
-        public Respuesta? EliminarProducto(long IdProducto)
+        public Respuesta? EliminarProductoPorId(long IdProducto)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/EliminarProducto?IdProducto=" + IdProducto;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/EliminarProductoPorId?IdProducto=" + IdProducto;
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
             var resp = _http.DeleteAsync(url).Result;
 

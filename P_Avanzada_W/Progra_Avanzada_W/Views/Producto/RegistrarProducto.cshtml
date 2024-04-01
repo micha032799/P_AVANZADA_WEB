@@ -1,0 +1,49 @@
+﻿@model Progra_Avanzada_W.Entidades.Producto
+
+
+@{
+    ViewData["Title"] = "RegistrarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper d-flex align-items-center auth px-0" style="margin-top:20px">
+    <div class="row col-md-11 mx-0 card mb-4">
+        <div class="card-body">
+            <div class="mb-3">
+
+
+                @using (Html.BeginForm("RegistrarProducto", "Producto", FormMethod.Post, new { @class = "pt-3" }))
+                {
+                    @ViewBag.MensajePantalla
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", @type = "text", @placeholder = "Nombre" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">descripcion</label>
+                        @Html.TextBoxFor(m => m.descripcion, new { @class = "form-control", @type = "text", @placeholder = "Descripcion del producto" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="Precio" class="form-label">Precio</label>
+                        @Html.TextBoxFor(m => m.precio, new { @class = "form-control", @type = "number", @placeholder = "Precio del producto" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Ruta de la Imagen</label>
+                        @Html.TextBoxFor(m => m.imagen, new { @class = "form-control", @type = "text", @placeholder = "Ruta de la imagen del Producto" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad del producto</label>
+                        @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control", @type = "number", @placeholder = "Cantidad del producto" })
+                    </div>
+                    <br />
+                    <div class="mt-3">
+                        <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="Registrar Producto">
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

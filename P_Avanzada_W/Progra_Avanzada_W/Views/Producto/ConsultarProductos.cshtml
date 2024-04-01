@@ -1,7 +1,7 @@
 ﻿@model List<Progra_Avanzada_W.Entidades.Producto>
 
 @{
-    ViewData["Title"] = "Consultar Productos";
+    ViewData["Title"] = "ConsultarProductos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,7 +12,7 @@
             <div class="card-header">
                 <h3 class="card-title">Productos</h3>
                 <div style="text-align:right">
-                    <a class="btn btn-primary" href="@Url.Action("AgregarProducto", "Producto")"> + Agregar</a>
+                    <a class="btn btn-primary" href="@Url.Action("RegistrarProducto", "Producto")"> + Agregar</a>
                 </div>
                 <br>
             </div>
@@ -25,15 +25,15 @@
                 </div>
             }
 
-            <div class="card-body table-responsive p-0">
-                <table id="Info" class="table table-hover text-nowrap">
+            <div class="table-responsive text-nowrap">
+                <table class="table" id="productosTable">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Producto</th>
-                            <th>Inventario</th>
-                            <th>Categoría</th>
-                            <th>Cantidad Mínima</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Imagen</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -41,22 +41,20 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.IdProducto</td>
-                                <td>@item.NombreProducto</td>
-                                <td>@item.Inventario</td>
-                                <td>@item.NombreCategoria</td>
-                                <td>@item.CantidadMinima</td>
-                                <td>
-                                    <a class="btn btn-primary" href="@Url.Action("ActualizarProducto","Producto", new { id = item.IdProducto})">
-                                        <i class="fa-solid fa-pen-to-square" style="color: #383838;"></i>
-                                    </a>
+                                <td>@item.nombre</td>
+                                <td>@item.descripcion</td>
+                                <td>@item.precio</td>
+                                <td>@item.Cantidad</td>
+                                <td><img src="@item.imagen" height="50px" width="50px" /></td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("EditarProducto","Producto", new { q = item.IdProducto })"><i class="fas fa-edit"></i></a>
                                     <button type="button" class="btn btn-primary passingID" data-toggle="modal" data-target="#exampleModal"
-                                            data-id="@item.IdProducto" data-name="@item.NombreProducto">
-                                        <i class="fa-solid fa-trash" style="color: #383838;"></i>
+                                            data-id="@item.IdProducto" data-name="@item.nombre">
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
-                        }                       
+                        } 
                     </tbody>
                 </table>
             </div>
@@ -74,8 +72,8 @@
             },
             "bInfo": false,
             "bLengthChange": false,
-            columnDefs: [{ type: 'string', targets: [0,1,2,3,4] }]
-            });
+            columnDefs: [{ type: 'string', targets: [0, 1, 2, 3, 4] }]
+        });
     });
 
     $(".passingID").click(function () {
@@ -95,7 +93,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @using (Html.BeginForm("EliminarProducto", "Producto", FormMethod.Post))
+            @using (Html.BeginForm("EliminarProductoPorId", "Producto", FormMethod.Post))
             {
                 <div class="modal-body">
                     <input type="hidden" id="IdProducto" name="IdProducto" value="">

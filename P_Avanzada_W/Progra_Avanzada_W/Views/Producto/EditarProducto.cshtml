@@ -1,0 +1,44 @@
+﻿@model Progra_Avanzada_W.Entidades.Producto
+
+@{
+    ViewData["Title"] = "EditarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper d-flex align-items-center auth px-0" style="margin-top:20px">
+    <div class="row col-md-11 mx-0 card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Información General</h4>
+
+            @using (Html.BeginForm("EditarProducto", "Producto", FormMethod.Post, new { @class = "pt-3" }))
+            {
+                @ViewBag.MensajePantalla
+
+                @Html.HiddenFor(m => m.IdProducto)
+
+                <div class="form-group mb-3">
+                    <label>Nombre del producto</label>
+                    @Html.TextBoxFor(m => m.nombre, new { @class = "form-control form-control-lg", @type = "text", @placeholder = "Nombre del Producto" })
+                </div>
+                <div class="form-group mb-3">
+                    <label>Descripcion del producto</label>
+                    @Html.TextBoxFor(m => m.descripcion, new { @class = "form-control form-control-lg", @type = "text", @placeholder = "Descripcion del Producto" })
+                </div>
+                <div class="form-group mb-3">
+                    <label>Precio del Producto</label>
+                    @Html.TextBoxFor(m => m.precio, new { @class = "form-control form-control-lg", @type = "number", @placeholder = "Precio del Producto" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Ruta de la imagen del producto</label>
+                    @Html.TextBoxFor(m => m.imagen, new { @class = "form-control form-control-lg", @type = "text", @placeholder = "Ruta de la imagen del producto" })
+                </div>
+                <div class="form-group mb-3">
+                    <label>Cantidad del producto</label>
+                    @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control form-control-lg", @type = "number", @placeholder = "Cantidad del producto" })
+                </div>
+                <button type="submit" class="btn btn-primary mr-2 mb-3">Procesar</button>
+            }
+        </div>
+    </div>
+</div>
