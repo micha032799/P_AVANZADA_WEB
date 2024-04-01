@@ -3,20 +3,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Progra_Avanzada_W.Entidades;
 using Progra_Avanzada_W.Models;
 using Progra_Avanzada_W.Services;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Progra_Avanzada_W.Controllers
 {
     [Seguridad]
     [ResponseCache(NoStore = true, Duration = 0)]
-    public class ProductoController(IProductoModel _productoModel) : Controller
+    public class ProductoController : Controller
     {
+        private readonly IProductoModel _productoModel;
+
+        public ProductoController(IProductoModel productoModel)
+        {
+            _productoModel = productoModel;
+        }
+
         [HttpGet]
         public IActionResult ConsultarProductos()
         {
             var resp = _productoModel.ConsultarProductos();
 
             if (resp?.Codigo == "00")
-                return View(resp?.Datos);
+                return View(resp?.Datos); 
             else
             {
                 ViewBag.MsjPantalla = resp?.Mensaje;
@@ -25,14 +34,13 @@ namespace Progra_Avanzada_W.Controllers
         }
 
         [HttpGet]
-        public IActionResult AgregarProducto()
+        public IActionResult RegistrarProducto()
         {
-            CargarCategorias();
             return View();
         }
 
         [HttpPost]
-        public IActionResult AgregarProducto(Producto entidad)
+        public IActionResult RegistrarProducto(Producto entidad)
         {
             var resp = _productoModel.RegistrarProducto(entidad);
 
@@ -40,16 +48,15 @@ namespace Progra_Avanzada_W.Controllers
                 return RedirectToAction("ConsultarProductos", "Producto");
             else
             {
-                CargarCategorias();
                 ViewBag.MsjPantalla = resp?.Mensaje;
                 return View();
             }
         }
 
         [HttpPost]
-        public IActionResult EliminarProducto(Producto entidad)
+        public IActionResult EliminarProductoPorId(Producto entidad)
         {
-            var resp = _productoModel.EliminarProducto(entidad.IdProducto);
+            var resp = _productoModel.EliminarProductoPorId(entidad.IdProducto);
 
             if (resp?.Codigo == "00")
                 return RedirectToAction("ConsultarProductos", "Producto");
@@ -61,37 +68,32 @@ namespace Progra_Avanzada_W.Controllers
         }
 
         [HttpGet]
-        public IActionResult ActualizarProducto(long id)
+        public IActionResult EditarProducto(long q)
         {
-            var resp = _productoModel.ConsultarProducto(id);
-            CargarCategorias();
-            return View(resp?.Dato);
+            var resp = _productoModel.ConsultarProductos();
+            if (resp?.Codigo == "00")
+            {
+                var datos = resp.Datos.Where(x => x.IdProducto == q).FirstOrDefault();
+                return View(datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = resp?.Mensaje;
+                return View();
+            }
         }
-
         [HttpPost]
-        public IActionResult ActualizarProducto(Producto entidad)
+        public IActionResult EditarProducto(Producto entidad)
         {
-            var resp = _productoModel.ActualizarProducto(entidad);
+            var resp = _productoModel.EditarProducto(entidad);
 
             if (resp?.Codigo == "00")
                 return RedirectToAction("ConsultarProductos", "Producto");
             else
             {
-                CargarCategorias();
                 ViewBag.MsjPantalla = resp?.Mensaje;
-                return View();
+                return RedirectToAction("ConsultarProductos", "Producto");
             }
         }
-
-        private void CargarCategorias()
-        {
-            var lista = new List<SelectListItem> { new SelectListItem { Value = string.Empty, Text = "Seleccione..." } };
-
-            foreach (var item in _productoModel.ConsultarCategorias()?.Datos!)
-                lista.Add(new SelectListItem { Value = item.IdCategoria.ToString(), Text = item.NombreCategoria });
-
-            ViewBag.Categorias = lista;
-        }
-
     }
 }
