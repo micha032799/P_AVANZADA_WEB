@@ -61,6 +61,21 @@
                     </li>
                     <li><a href="@Url.Action("ObtenerTodasLasPreguntasFrecuentes","PreguntasFrecuentes")">Ver Preguntas Frecuentes</a></li>
                     <li><a href="@Url.Action("Salir","Home")" class="smoothScroll">Salir</a></li>
+                    <li>
+                        <div style="margin-left:2%" class="container-xxl navbar navbar-expand-xl  align-items-center">
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @Context.Session.GetString("Cantidad").ToString()
+                            <br />
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @decimal.Parse(Context.Session.GetString("Total")).ToString("N2").ToString() + ivi
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-expanded="false" aria-controls="ui-basic" href="@Url.Action("ConsultarCarrito","Carrito")">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Pagar Carrito</span>
+                        </a>
+
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

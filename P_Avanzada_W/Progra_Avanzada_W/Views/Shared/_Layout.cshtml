@@ -14,6 +14,7 @@
     <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/boxicons.css" />
     <link href="~/lib/css/animate.css" rel="stylesheet" />
     <link href="~/lib/css/owl.carousel.css" rel="stylesheet" />
     <link href="~/lib/css/owl.theme.default.min.css" rel="stylesheet" />
@@ -61,9 +62,25 @@
                     </li>
                     <li><a href="@Url.Action("ObtenerTodasLasPreguntasFrecuentes","PreguntasFrecuentes")">Ver Preguntas Frecuentes</a></li>
                     <li><a href="@Url.Action("Salir","Home")" class="smoothScroll">Salir</a></li>
+                    <li>
+                        <div style="margin-left:2%" class="container-xxl navbar navbar-expand-xl  align-items-center">
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @Context.Session.GetString("Cantidad").ToString()
+                            <br />
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @decimal.Parse(Context.Session.GetString("Total")).ToString("N2").ToString() + ivi
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" aria-expanded="false" aria-controls="ui-basic" href="@Url.Action("ConsultarCarrito","Carrito")">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Pagar Carrito</span>
+                        </a>
+
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+
                     <li><a href="#">LLame ahora! <i class="fa fa-phone"></i> 2210-2525</a></li>
                     <a href="#footer" class="section-btn">Reserve</a>
                 </ul>
