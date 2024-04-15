@@ -1,0 +1,113 @@
+﻿@model List<Progra_Avanzada_W.Entidades.Reserva>
+
+@{
+    ViewData["Title"] = "ConsultarReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="card-title">Reservas</h3>
+                <div style="text-align:right">
+                    <a class="btn btn-primary" href="@Url.Action("AgregarReserva", "Reserva")"> + Agregar</a>
+                </div>
+                <br>
+            </div>
+
+            @if (ViewBag.MsjPantalla != null)
+            {
+                <br>
+                <div class="alert alert-warning" role="alert" style="text-align:center">
+                    @ViewBag.MsjPantalla
+                </div>
+            }
+
+            <div class="card-body table-responsive p-0">
+                <table id="Info" class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Responsable</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IdReserva</td>
+                                <td>@item.Nombre</td>
+                                <td>Mesa para @item.CantidadPersonas</td>
+                                <td>@item.Precio.ToString("N2")</td>
+                                <td>@item.FechaReserva.ToString("dd/MM/yyyy hh:mm tt")</td>
+                                <td>@item.EstadoReserva</td>
+                                <td>
+                                    <a class="btn btn-primary" href="@Url.Action("ActualizarReserva","Reserva", new { id = item.IdReserva })">
+                                        <i class="fa fa-pencil-square-o faa-tada animated"></i>
+                                    </a>
+
+                                    <button type="button" class="btn btn-primary passingID" data-toggle="modal" data-target="#exampleModal"
+                                            data-id="@item.IdReserva" data-name="@item.FechaReserva.ToString("dd/MM/yyyy hh:mm tt")">
+                                        <i class="fa fa-trash-o faa-pulse animated"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var table = new DataTable('#Info', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            },
+            "bInfo": false,
+            "bLengthChange": false,
+            columnDefs: [{ type: 'string', targets: [0, 1, 2, 3, 4] }]
+        });
+    });
+
+    $(".passingID").click(function () {
+        $("#IdReserva").val($(this).attr('data-id'));
+        $("#Question").text("¿Desea eliminar la reserva de la fecha " + $(this).attr('data-name') + "?");
+    });
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("EliminarReserva", "Reserva", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <input type="hidden" id="IdReserva" name="IdReserva" value="">
+                    <p id="Question" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Procesar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

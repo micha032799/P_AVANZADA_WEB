@@ -14,6 +14,7 @@ builder.Services.AddSession();
 builder.Services.AddSingleton<IUsuarioModel, UsuarioModel>();
 builder.Services.AddSingleton<IProductoModel, ProductoModel>();
 builder.Services.AddSingleton<IUtilitariosModel, UtilitariosModel>();
+builder.Services.AddSingleton<IReservaModel, ReservaModel>();
 
 var app = builder.Build();
 

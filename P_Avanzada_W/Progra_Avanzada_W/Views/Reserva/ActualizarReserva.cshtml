@@ -1,0 +1,138 @@
+﻿@model Progra_Avanzada_W.Entidades.Reserva
+
+@{
+    ViewData["Title"] = "EditarReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="position:absolute; top: 10; right: 0;">
+    <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Precios</strong>
+            <small class="text-muted">@DateTime.Now.ToString("dd/MM/yyyy")</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+            L - V ¢10.000 / S y D ¢12.500
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="card card-secondary" style="margin-top:2%">
+            <div class="card-header">
+                <h3 class="card-title">Actualizar Reserva</h3>
+            </div>
+
+            @using (Html.BeginForm("ActualizarReserva", "Reserva", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.IdReserva)
+
+                <div class="card-body">
+
+                    @if (Context.Session.GetString("IdRol") != "1")
+                    {
+                        @Html.Label("Cliente")
+                        @Html.DropDownListFor(x => x.IdUsuario, ViewBag.Clientes as List<SelectListItem>, new
+                            {
+                                @class = "form-control",
+                                @required = "true"
+                            })
+                    }
+                    <br>
+
+                    @Html.Label("Cantidad")
+                    @Html.TextBoxFor(x => x.CantidadPersonas, new
+                        {
+                            @class = "form-control",
+                            @placeholder = "Cantidad",
+                            @onkeypress = "return ValidarNumeros(this.id)",
+                            @pattern = "^[0-9]+$",
+                            @required = "true"
+                        })
+                    <br>
+
+                    @Html.Label("Fecha")
+                    @Html.Hidden("FechaReservaHide", (string)@ViewBag.FechaReservaHide)
+                    @Html.TextBoxFor(x => x.FechaReserva, new
+                        {
+                            @class = "form-control",
+                            @placeholder = "Fecha",
+                            @required = "true",
+                            @type = "datetime-local"
+                        })
+
+                    <br>
+
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <br>
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
+
+                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Procesar</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.toast').toast('show');
+
+        let date = $("#FechaReservaHide").val();
+        $("#FechaReserva").val(formatDate(new Date(date)));
+    });
+
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return (
+            [
+                date.getFullYear(),
+                padTo2Digits(date.getMonth() + 1),
+                padTo2Digits(date.getDate()),
+            ].join('-') +
+            ' ' +
+            [
+                padTo2Digits(date.getHours()),
+                padTo2Digits(date.getMinutes()),
+                padTo2Digits(date.getSeconds()),
+            ].join(':')
+        );
+    }
+
+    function ValidarNumeros(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode >= 49 && charCode <= 56) {
+
+            if ($("#CantidadPersonas").val() == "") {
+                return true;
+            }
+
+            if ($("#CantidadPersonas").val() > 1 && $("#CantidadPersonas").val() < 8) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+</script>

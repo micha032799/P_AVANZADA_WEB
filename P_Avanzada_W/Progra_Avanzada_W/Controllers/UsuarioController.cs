@@ -2,6 +2,8 @@
 using Progra_Avanzada_W.Models;
 using Progra_Avanzada_W.Services;
 using Progra_Avanzada_W.Entidades;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Progra_Avanzada_W.Controllers
 {
