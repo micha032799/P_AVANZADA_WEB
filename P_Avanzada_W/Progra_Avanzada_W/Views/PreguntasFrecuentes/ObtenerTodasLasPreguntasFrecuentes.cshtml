@@ -1,0 +1,47 @@
+﻿@model List<Progra_Avanzada_W.Entidades.PreguntasFrecuentes>
+
+
+@{
+    ViewData["Title"] = "ObtenerTodasLasPreguntasFrecuentes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Preguntas frecuentes</h4>
+                    <br />
+                    @foreach (var item in Model)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-question-circle"></i> @item.Nombre
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Pregunta:</strong> @item.Pregunta</p>
+                                <p class="card-text"><strong>Respuesta:</strong> @item.Respuesta</p>
+                                @if (Context.Session.GetString("NombreRol") == "Trabajador Administrativo")
+                                {
+                                    <div class="dropdown text-center">
+                                        <button class="btn btn-info btn-M dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration:none; font-size: 100%; color:black;">
+                                            Acciones
+                                        </button>
+                                        <br />
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: 40%; text-align:center ">
+                                            <a class="dropdown-item" href="@Url.Action("ActualizarPreguntasFrecuentes", "PreguntasFrecuentes", new { q = item.IdPreguntasFrecuentes })">Actualizar</a>
+                                            <a class="dropdown-item" href="@Url.Action("EliminarPreguntaFrecuentePorId", "PreguntasFrecuentes", new { q = item.IdPreguntasFrecuentes })">Eliminar</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

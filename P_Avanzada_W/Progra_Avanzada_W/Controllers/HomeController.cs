@@ -29,6 +29,7 @@ namespace Progra_Avanzada_W.Controllers
                 HttpContext.Session.SetString("Nombre", resp?.Dato?.NombreUsuario!);
                 HttpContext.Session.SetString("Token", resp?.Dato?.Token!);
                 HttpContext.Session.SetString("IdRol", resp?.Dato?.IdRol.ToString()!);
+                HttpContext.Session.SetString("IdUsuario", resp?.Dato?.IdUsuario.ToString()!);
                 HttpContext.Session.SetString("NombreRol", resp?.Dato?.NombreRol!);
 
                 if ((bool)(resp?.Dato?.EsTemporal!))
