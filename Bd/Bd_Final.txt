@@ -1,6 +1,6 @@
 USE [proyecto_web]
 GO
-/****** Object:  Table [dbo].[PreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[PreguntasFrecuentes]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17,7 +17,24 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tBitacora]    Script Date: 25/4/2024 17:46:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tBitacora](
+	[IdBitacora] [bigint] IDENTITY(1,1) NOT NULL,
+	[IdUsuario] [bigint] NOT NULL,
+	[FechaHora] [datetime] NOT NULL,
+	[Descripcion] [varchar](max) NOT NULL,
+	[Origen] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_tBitacora] PRIMARY KEY CLUSTERED 
+(
+	[IdBitacora] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tCarrito]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -34,7 +51,7 @@ CREATE TABLE [dbo].[tCarrito](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tDetalle]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tDetalle]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -52,7 +69,7 @@ CREATE TABLE [dbo].[tDetalle](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tEncabezado]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tEncabezado]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -68,22 +85,7 @@ CREATE TABLE [dbo].[tEncabezado](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tErrores]    Script Date: 25/4/2024 17:22:09 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[tErrores](
-	[IdError] [bigint] NOT NULL,
-	[FechaError] [datetime] NULL,
-	[Metodo] [varchar](50) NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[IdError] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[tProducto]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tProducto]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -101,7 +103,7 @@ CREATE TABLE [dbo].[tProducto](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tReserva]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tReserva]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -119,7 +121,7 @@ CREATE TABLE [dbo].[tReserva](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tRol]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tRol]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,7 +135,7 @@ CREATE TABLE [dbo].[tRol](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  Table [dbo].[tUsuario]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,7 +168,7 @@ REFERENCES [dbo].[tRol] ([IdRol])
 GO
 ALTER TABLE [dbo].[tUsuario] CHECK CONSTRAINT [FK_tUsuario_tRol]
 GO
-/****** Object:  StoredProcedure [dbo].[ActualizarPerfil]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ActualizarPerfil]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +191,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ActualizarPreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ActualizarPreguntasFrecuentes]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -206,7 +208,7 @@ BEGIN
     WHERE IdPreguntasFrecuentes = @IdPreguntasFrecuentes;
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[ActualizarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ActualizarReserva]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -237,7 +239,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[CambiarContrasenna]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[CambiarContrasenna]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -274,7 +276,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarCarrito]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -299,7 +301,7 @@ BEGIN
     WHERE IdUsuario = @IdUsuario
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarDetalleFactura]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarDetalleFactura]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -321,7 +323,7 @@ BEGIN
     WHERE IdFactura = @IdFactura
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarFacturas]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarFacturas]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -338,7 +340,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarProductos]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarProductos]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -350,7 +352,7 @@ BEGIN
     SELECT * FROM dbo.TProducto;
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarReserva]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -377,7 +379,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarReservas]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarReservas]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -409,7 +411,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarUsuario]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -427,7 +429,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[EditarProducto]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[EditarProducto]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -450,7 +452,7 @@ BEGIN
     WHERE IdProducto = @idProducto;
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[EliminarPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[EliminarPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -463,7 +465,7 @@ BEGIN
     WHERE IdPreguntasFrecuentes = @IdPreguntasFrecuentes
 END
 GO
-/****** Object:  StoredProcedure [dbo].[EliminarProductoCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[EliminarProductoCarrito]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -479,7 +481,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[EliminarProductoPorId]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[EliminarProductoPorId]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -493,7 +495,7 @@ BEGIN
     WHERE IdProducto = @idProducto;
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[EliminarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[EliminarReserva]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -508,7 +510,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -529,7 +531,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ObtenerInventarioPorID]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ObtenerInventarioPorID]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -543,7 +545,7 @@ BEGIN
     WHERE IdProducto = @IdProducto;
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[ObtenerPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ObtenerPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -565,7 +567,7 @@ BEGIN
         IdPreguntasFrecuentes = @IdPreguntasFrecuentes;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ObtenerTodasLasPreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[ObtenerTodasLasPreguntasFrecuentes]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -577,7 +579,7 @@ BEGIN
   FROM dbo.PreguntasFrecuentes
 END
 GO
-/****** Object:  StoredProcedure [dbo].[PagarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[PagarCarrito]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -638,7 +640,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RecuperarAcceso]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RecuperarAcceso]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -673,7 +675,24 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarBitacora]    Script Date: 25/4/2024 17:46:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarBitacora]
+	@IdUsuario		bigint,
+    @Descripcion	varchar(max),
+    @Origen			varchar(50)
+AS
+BEGIN
+
+	INSERT INTO dbo.tBitacora(IdUsuario,FechaHora,Descripcion,Origen)
+    VALUES (@IdUsuario, GETDATE(), @Descripcion, @Origen)
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarCarrito]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -703,7 +722,7 @@ BEGIN
 	END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarPreguntaFrecuente]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarPreguntaFrecuente]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -721,7 +740,7 @@ BEGIN
     VALUES (@IdUsuario, @NombreUsuario, @Pregunta, @Respuesta)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarProducto]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarProducto]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -738,7 +757,7 @@ BEGIN
     VALUES (@nombre, @descripcion, @precio, @imagen, @cantidad );
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarReserva]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -766,7 +785,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 25/4/2024 17:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
