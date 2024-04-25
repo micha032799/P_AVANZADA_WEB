@@ -50,12 +50,12 @@
                                 <td>@item.EstadoReserva</td>
                                 <td>
                                     <a class="btn btn-primary" href="@Url.Action("ActualizarReserva","Reserva", new { id = item.IdReserva })">
-                                        <i class="fa fa-pencil-square-o faa-tada animated"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
 
                                     <button type="button" class="btn btn-primary passingID" data-toggle="modal" data-target="#exampleModal"
                                             data-id="@item.IdReserva" data-name="@item.FechaReserva.ToString("dd/MM/yyyy hh:mm tt")">
-                                        <i class="fa fa-trash-o faa-pulse animated"></i>
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -88,7 +88,6 @@
 
 </script>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

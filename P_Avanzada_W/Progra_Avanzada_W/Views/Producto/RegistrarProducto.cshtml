@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="Precio" class="form-label">Precio</label>
-                        @Html.TextBoxFor(m => m.precio, new { @class = "form-control", @type = "number", @placeholder = "Precio del producto" })
+                        @Html.TextBoxFor(m => m.precio, new { @onkeypress = "return EvitarEspacios(event)", @class = "form-control", @type = "number", @placeholder = "Precio del producto" })
                     </div>
                     <div class="mb-3">
                         <label for="imagen" class="form-label">Ruta de la Imagen</label>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="cantidad" class="form-label">Cantidad del producto</label>
-                        @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control", @type = "number", @placeholder = "Cantidad del producto" })
+                        @Html.TextBoxFor(m => m.Cantidad, new { @onkeypress = "return EvitarEspacios(event)", @class = "form-control", @type = "number", @placeholder = "Cantidad del producto" })
                     </div>
                     <br />
                     <div class="mt-3">
