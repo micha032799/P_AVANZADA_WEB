@@ -102,7 +102,7 @@ namespace Progra_Avanzada_W.Controllers
         private void CargarClientes()
         {
             var lista = new List<SelectListItem>();
-            var usuarios = _usuarios.ConsultarUsuario()?.Datos;
+            var usuarios = _usuarios.ConsultarUsuario(1)?.Datos;
 
             if (usuarios != null)
             {
