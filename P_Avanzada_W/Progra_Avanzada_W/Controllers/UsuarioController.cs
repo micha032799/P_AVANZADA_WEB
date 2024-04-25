@@ -2,6 +2,8 @@
 using Progra_Avanzada_W.Models;
 using Progra_Avanzada_W.Services;
 using Progra_Avanzada_W.Entidades;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Progra_Avanzada_W.Controllers
 {
@@ -12,8 +14,17 @@ namespace Progra_Avanzada_W.Controllers
         [HttpGet]
         public IActionResult ConsultarPerfil()
         {
-            var resp = _usuarioModel.ConsultarUsuario();
-            return View(resp?.Dato);
+            string idUsuarioString = HttpContext.Session.GetString("IdUsuario");
+
+            if (long.TryParse(idUsuarioString, out long idUsuario))
+            {
+                var resp = _usuarioModel.ConsultarUsuario(idUsuario);
+                return View(resp?.Dato);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]

@@ -20,3 +20,87 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.theme-red {
+    background-color: red;
+}
+.custom-navbar {
+    background-color: #1d1d1d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.brand-highlight {
+    color: #ff6600;
+}
+
+.nav-link {
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #ff6600;
+    }
+
+.cart-link {
+    color: #ff6600;
+}
+
+    .cart-link:hover {
+        color: #ffac81;
+    }
+
+.navbar-text {
+    color: #fff;
+    font-weight: 500;
+}
+
+.product-card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    .product-card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .product-card .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-card .card-text {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+
+    .product-card .product-price {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #ff6600;
+        margin-bottom: 1rem;
+    }
+
+    .product-card .quantity-input {
+        width: 80px;
+    }
+
+    .product-card .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }

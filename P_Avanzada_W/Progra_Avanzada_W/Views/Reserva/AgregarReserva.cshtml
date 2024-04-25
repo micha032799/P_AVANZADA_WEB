@@ -1,0 +1,114 @@
+﻿@model Progra_Avanzada_W.Entidades.Reserva
+
+@{
+    ViewData["Title"] = "AgregarReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="position:absolute; top: 10; right: 0;">
+    <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <strong class="mr-auto text-primary">Precios de buffet</strong>
+            <small class="text-muted">@DateTime.Now.ToString("dd/MM/yyyy")</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body; wow fadeInUp">
+            K - V ¢8.000
+            </br>
+            S y D ¢7.500
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="card card-secondary" style="margin-top:2%">
+            <div class="card-header">
+                <h3 class="card-title">Registro de Reservas</h3>
+            </div>
+
+            @using (Html.BeginForm("AgregarReserva", "Reserva", FormMethod.Post))
+            {
+                <div class="card-body">
+                    <br>
+
+                    @Html.Label("Cantidad de personas")
+                    @Html.TextBoxFor(x => x.CantidadPersonas, new
+                        {
+                            @class = "form-control",
+                            @placeholder = "Cantidad",
+                            @onkeypress = "return ValidarNumeros(this.id)",
+                            @pattern = "^[0-9]+$",
+                            @required = "true"
+                        })
+                    <br>
+
+                    @Html.Label("Fecha de reserva")
+                    @Html.TextBoxFor(x => x.FechaReserva, new
+                        {
+                            @class = "form-control",
+                            @placeholder = "Fecha",
+                            @required = "true",
+                            @type = "datetime-local"
+                        })
+
+                    <br>
+
+                    @if (ViewBag.MsjPantalla != null)
+                    {
+                        <br>
+                        <div class="alert alert-warning" role="alert" style="text-align:center">
+                            @ViewBag.MsjPantalla
+                        </div>
+                    }
+
+                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block">Procesar</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+
+    function ValidarNumeros(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode >= 49 && charCode <= 56) {
+
+            if ($("#CantidadPersonas").val() == "") {
+                return true;
+            }
+
+            if ($("#CantidadPersonas").val() > 1 && $("#CantidadPersonas").val() < 8) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+</script>
+
+@{
+    if (ViewBag.Clientes != null)
+    {
+        foreach (var item in ViewBag.Clientes)
+        {
+            Console.WriteLine($"Value: {item.Value}, Text: {item.Text}");
+        }
+    }
+}

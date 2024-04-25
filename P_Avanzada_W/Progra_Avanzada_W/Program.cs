@@ -14,7 +14,12 @@ builder.Services.AddSession();
 builder.Services.AddSingleton<IUsuarioModel, UsuarioModel>();
 builder.Services.AddSingleton<IProductoModel, ProductoModel>();
 builder.Services.AddSingleton<IUtilitariosModel, UtilitariosModel>();
+
+builder.Services.AddSingleton<IReservaModel, ReservaModel>();
 builder.Services.AddSingleton<IPreguntasFrecuentesModel, PreguntasFrecuentesModel>();
+builder.Services.AddSingleton<ICarritoModel, CarritoModel>();
+builder.Services.AddSingleton<IBitacoraModel, BitacoraModel>();
+
 
 var app = builder.Build();
 

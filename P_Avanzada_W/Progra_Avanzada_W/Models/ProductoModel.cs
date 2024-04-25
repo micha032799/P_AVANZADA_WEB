@@ -20,6 +20,18 @@ namespace Progra_Avanzada_W.Models
             return null;
         }
 
+        public ProductoRespuesta? ObtenerInventarioPorId(long q)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/ObtenerInventarioPorId?q=" + q;
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<ProductoRespuesta>().Result;
+
+            return null;
+        }
+
         public Respuesta? RegistrarProducto(Producto entidad)
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + "api/Producto/RegistrarProducto";

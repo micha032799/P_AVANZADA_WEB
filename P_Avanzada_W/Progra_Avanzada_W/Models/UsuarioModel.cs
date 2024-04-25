@@ -54,9 +54,9 @@ namespace Progra_Avanzada_W.Models
             return null;
         }
 
-        public UsuarioRespuesta? ConsultarUsuario()
+        public UsuarioRespuesta? ConsultarUsuario(long q)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUsuario";
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUsuario?q=" + q;
             _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
             var resp = _http.GetAsync(url).Result;
 
