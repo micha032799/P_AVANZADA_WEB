@@ -1,0 +1,39 @@
+﻿@model Progra_Avanzada_W.Entidades.PreguntasFrecuentes
+
+@{
+    ViewData["Title"] = "ActualizarPreguntasFrecuentes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper d-flex align-items-center justify-content-center auth px-0" style="margin-top:20px">
+    <div class="row col-md-10 mx-0 card mb-4">
+        <div class="card-body">
+            <div class="header">
+                <h2 class="font-weight-bold" style="font-size: 250%">
+                    Actualizar Pregunta Frecuente <small>Modifique la pregunta y respuesta</small>
+                </h2>
+            </div>
+            @using (Html.BeginForm("ActualizarPreguntasFrecuentes", "PreguntasFrecuentes", FormMethod.Post, new { @class = "pt-3" }))
+            {
+                <p class="font-weight-bold">@ViewBag.MensajePantalla</p>
+                <br />
+                @Html.HiddenFor(m => m.IdPreguntasFrecuentes)
+                <div class="form-group col-md-12 mb-3">
+                    <div class="form-line">
+                        @Html.LabelFor(m => m.Pregunta)
+                        @Html.TextAreaFor(m => m.Pregunta, new { @class = "form-control form-control-lg" })
+                    </div>
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    <div class="form-line">
+                        @Html.LabelFor(m => m.Respuesta)
+                        @Html.TextAreaFor(m => m.Respuesta, new { @class = "form-control form-control-lg" })
+                    </div>
+                </div>
+                <div class="mt-3 col-md-5 mx-auto">
+                    <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" style="text-decoration:none; font-size: 100%; background-color: color:black;" value="Actualizar Pregunta Frecuente">
+                </div>
+            }
+        </div>
+    </div>
+</div>

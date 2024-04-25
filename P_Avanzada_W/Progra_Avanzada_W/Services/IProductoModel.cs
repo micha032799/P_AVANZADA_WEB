@@ -8,6 +8,7 @@ namespace Progra_Avanzada_W.Services
         Respuesta? EditarProducto(Producto entidad);
         Respuesta? RegistrarProducto(Producto entidad);
         Respuesta? EliminarProductoPorId(long IdProducto);
+        ProductoRespuesta? ObtenerInventarioPorId(long q);
     }
     
 }

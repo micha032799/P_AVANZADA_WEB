@@ -20,7 +20,9 @@
             @Html.TextBoxFor(m => m.Contrasenna, new { @onkeypress = "return EvitarEspacios(event)", @class = "form-control form-control-lg", @type = "password", @required = "true", @placeholder = "Contraseña" })
         </div>
     </div>
+
     <div class="mt-3 text-center mt-4">
+
         <input onclick="validarCaptcha()" type="button" class="btn btn-block btn-primary btn-lg font-weight-bold auth-form-btn" style="text-decoration:none; font-size: 100%; color:black;" value="Iniciar Sesión">
     </div>
     <div class="captcha-container mt-3" id="captchaContainer">
@@ -34,6 +36,7 @@
         <a href="@Url.Action("RecuperarAcceso","Home")" class="text-center">¿Olvidaste la contraseña?</a>
     </div>
 
+
 }
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -42,6 +45,8 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+=======
+
 
 <script>
     function validarCaptcha() {
@@ -59,3 +64,8 @@
         }
     }
 </script>
+
+
+<script src="~/js/consultanombreapi.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+

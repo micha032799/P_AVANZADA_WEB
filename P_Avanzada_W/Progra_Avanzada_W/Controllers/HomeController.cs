@@ -7,7 +7,7 @@ using Progra_Avanzada_W.Entidades;
 namespace Progra_Avanzada_W.Controllers
 {
     [ResponseCache(NoStore = true, Duration = 0)]
-    public class HomeController(IUsuarioModel _usuarioModel, IUtilitariosModel _utilitariosModel) : Controller
+    public class HomeController(IUsuarioModel _usuarioModel, IUtilitariosModel _utilitariosModel, IProductoModel _productoModel) : Controller
     {
 
         [HttpGet]
@@ -25,12 +25,17 @@ namespace Progra_Avanzada_W.Controllers
 
             if (resp?.Codigo == "00")
             {
+                HttpContext.Session.SetString("IdUsuario", resp?.Dato?.IdUsuario.ToString()!);
                 HttpContext.Session.SetString("Correo", resp?.Dato?.Correo!);
-                HttpContext.Session.SetString("Nombre", resp?.Dato?.NombreUsuario!);
+                HttpContext.Session.SetString("Nombre", resp?.Dato?.NombreUsuario);
                 HttpContext.Session.SetString("Token", resp?.Dato?.Token!);
                 HttpContext.Session.SetString("IdRol", resp?.Dato?.IdRol.ToString()!);
+                HttpContext.Session.SetString("IdUsuario", resp?.Dato?.IdUsuario.ToString()!);
                 HttpContext.Session.SetString("NombreRol", resp?.Dato?.NombreRol!);
 
+
+                HttpContext.Session.SetString("Cantidad", "");
+                HttpContext.Session.SetString("Total", "");
                 if ((bool)(resp?.Dato?.EsTemporal!))
                 {
                     return RedirectToAction("CambiarContrasenna", "Home");
@@ -132,7 +137,15 @@ namespace Progra_Avanzada_W.Controllers
         [HttpGet]
         public IActionResult PantallaPrincipal()
         {
-            return View();
+            var resp = _productoModel.ConsultarProductos();
+
+            if (resp?.Codigo == "00")
+                return View(resp?.Datos);
+            else
+            {
+                ViewBag.MsjPantalla = resp?.Mensaje;
+                return View(new List<Producto>());
+            }
         }
 
 
