@@ -8,12 +8,14 @@
 <div style="position:absolute; top: 10; right: 0;">
     <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
         <div class="toast-header">
-            <strong class="mr-auto text-primary">Precios</strong>
+            <strong class="mr-auto text-primary">Precios de buffet</strong>
             <small class="text-muted">@DateTime.Now.ToString("dd/MM/yyyy")</small>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
         </div>
-        <div class="toast-body">
-            L - V ¢10.000 / S y D ¢12.500
+        <div class="toast-body; wow fadeInUp">
+            K - V ¢8.000
+            </br>
+            S y D ¢7.500
         </div>
     </div>
 </div>
@@ -30,19 +32,9 @@
             @using (Html.BeginForm("AgregarReserva", "Reserva", FormMethod.Post))
             {
                 <div class="card-body">
-
-                    @if (Context.Session.GetString("IdRol") != "1")
-                    {
-                        @Html.Label("Cliente")
-                        @Html.DropDownListFor(x => x.IdUsuario, ViewBag.Clientes as List<SelectListItem>, new
-                            {
-                                @class = "form-control",
-                                @required = "true"
-                            })
-                    }
                     <br>
 
-                    @Html.Label("Cantidad")
+                    @Html.Label("Cantidad de personas")
                     @Html.TextBoxFor(x => x.CantidadPersonas, new
                         {
                             @class = "form-control",
@@ -53,7 +45,7 @@
                         })
                     <br>
 
-                    @Html.Label("Fecha")
+                    @Html.Label("Fecha de reserva")
                     @Html.TextBoxFor(x => x.FechaReserva, new
                         {
                             @class = "form-control",
@@ -110,3 +102,13 @@
         return false;
     }
 </script>
+
+@{
+    if (ViewBag.Clientes != null)
+    {
+        foreach (var item in ViewBag.Clientes)
+        {
+            Console.WriteLine($"Value: {item.Value}, Text: {item.Text}");
+        }
+    }
+}

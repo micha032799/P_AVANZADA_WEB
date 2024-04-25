@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout_Externo.cshtml";
 }
 
-@using (Html.BeginForm("RegistrarUsuario", "Home", FormMethod.Post, new { @class = "pt-3" }))
+@using (Html.BeginForm("RegistrarUsuario", "Home", FormMethod.Post, new { @class = "pt-3", id = "registroForm" }))
 {
     <p class="font-weight-bold">@ViewBag.MensajePantalla</p>
     <br />
 
     <div class="form-group col-md-15 mb-3">
         <div class="form-line">
-            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control form-control-lg", @type = "text", @required = "true", @placeholder = "Correo Electrónico" })
+            @Html.TextBoxFor(m => m.Correo, new { @onkeypress = "return EvitarEspacios(event)", @class = "form-control form-control-lg", @type = "text", @required = "true", @placeholder = "Correo Electrónico" })
             @Html.ValidationMessageFor(m => m.Correo, null, new { @style = "color:red" })
         </div>
     </div>
@@ -26,16 +26,42 @@
 
     <div class="form-group col-md-15 mb-3">
         <div class="form-line">
-            @Html.TextBoxFor(m => m.Contrasenna, new { @class = "form-control form-control-lg", @type = "password", @required = "true", @placeholder = "Contraseña", @pattern = "^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W]).{6,20})" })
+            @Html.TextBoxFor(m => m.Contrasenna, new { @onkeypress = "return EvitarEspacios(event)", @class = "form-control form-control-lg", @type = "password", @required = "true", @placeholder = "Contraseña", @pattern = "^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W]).{6,20})" })
             @Html.ValidationMessageFor(m => m.Contrasenna, null, new { @style = "color:red" })
         </div>
     </div>
-
     <div class="mt-3 text-center mt-4">
-        <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-bold auth-form-btn" style="text-decoration:none; font-size: 100%; color:black;" value="Registrar">
+        <input onclick="validarCaptcha()" type="button" class="btn btn-block btn-primary btn-lg font-weight-bold auth-form-btn" style="text-decoration:none; font-size: 100%; color:black;" value="Registrarse">
+    </div>
+    <div class="captcha-container mt-3" id="captchaContainer">
+        <div class="g-recaptcha" data-sitekey="6Lc2r7IpAAAAANPI6ywEImU3GRwS2Ze93CPSE8Ch"></div>
     </div>
 
     <div class="text-center mt-4 font-weight-light">
         <a href="@Url.Action("IniciarSesion", "Home")" class="font-weight-bold" style="text-decoration:none">¿Ya tienes una cuenta?</a>
     </div>
 }
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="~/js/consultanombreapi.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+<script>
+    function validarCaptcha() {
+        var response = grecaptcha.getResponse();
+        if (response.length == 0) {
+            // El captcha no se ha completado
+            Swal.fire({
+                icon: 'error',
+                title: '¡Hubo un error!',
+                text: 'Por favor, completa el captcha.'
+            });
+        } else {
+            // El captcha se ha completado, enviar el formulario
+            document.getElementById("registroForm").submit();
+        }
+    }
+</script>

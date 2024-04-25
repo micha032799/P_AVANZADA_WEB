@@ -46,7 +46,7 @@ namespace Progra_Avanzada_W.Controllers
         [HttpPost]
         public IActionResult AgregarReserva(Reserva entidad)
         {
-            entidad.Precio = (entidad.FechaReserva.DayOfWeek == DayOfWeek.Saturday || entidad.FechaReserva.DayOfWeek == DayOfWeek.Sunday ? 12500 : 10000);
+            entidad.Precio = (entidad.FechaReserva.DayOfWeek == DayOfWeek.Saturday || entidad.FechaReserva.DayOfWeek == DayOfWeek.Sunday ? 8000 : 7500);
             var resp = _reservaModel.RegistrarReserva(entidad);
 
             if (resp?.Codigo == "00")
@@ -58,7 +58,6 @@ namespace Progra_Avanzada_W.Controllers
                 return View();
             }
         }
-
 
         [HttpGet]
         public IActionResult ActualizarReserva(long id)
@@ -73,7 +72,7 @@ namespace Progra_Avanzada_W.Controllers
         [HttpPost]
         public IActionResult ActualizarReserva(Reserva entidad)
         {
-            entidad.Precio = (entidad.FechaReserva.DayOfWeek == DayOfWeek.Saturday || entidad.FechaReserva.DayOfWeek == DayOfWeek.Sunday ? 12500 : 10000);
+            entidad.Precio = (entidad.FechaReserva.DayOfWeek == DayOfWeek.Saturday || entidad.FechaReserva.DayOfWeek == DayOfWeek.Sunday ? 8000 : 7500);
             var resp = _reservaModel.ActualizarReserva(entidad);
 
             if (resp?.Codigo == "00")
@@ -100,7 +99,6 @@ namespace Progra_Avanzada_W.Controllers
                 return View();
             }
         }
-
         private void CargarClientes()
         {
             var lista = new List<SelectListItem>();
@@ -113,8 +111,7 @@ namespace Progra_Avanzada_W.Controllers
                     lista.Add(new SelectListItem { Value = item.IdUsuario.ToString(), Text = item.NombreUsuario });
                 }
             }
-
-            lista.Insert(0, new SelectListItem { Value = string.Empty, Text = "Seleccione..." });
+            lista.Insert(0, new SelectListItem { Value = string.Empty, Text = "Usuario" });
             ViewBag.Clientes = lista;
         }
     }
