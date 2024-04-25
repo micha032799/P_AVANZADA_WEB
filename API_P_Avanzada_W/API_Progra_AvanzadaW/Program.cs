@@ -60,6 +60,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+
+app.UseExceptionHandler("/api/error/error");
+
 app.UseSwagger();
 
 app.UseSwaggerUI();
