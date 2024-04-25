@@ -1,0 +1,791 @@
+USE [proyecto_web]
+GO
+/****** Object:  Table [dbo].[PreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PreguntasFrecuentes](
+	[IdPreguntasFrecuentes] [int] IDENTITY(1,1) NOT NULL,
+	[IdUsuario] [bigint] NOT NULL,
+	[Nombre] [varchar](200) NOT NULL,
+	[Pregunta] [varchar](1000) NOT NULL,
+	[Respuesta] [varchar](1000) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdPreguntasFrecuentes] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tCarrito](
+	[IdCarrito] [bigint] IDENTITY(1,1) NOT NULL,
+	[IdUsuario] [bigint] NOT NULL,
+	[IdProducto] [bigint] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Fecha] [datetime] NOT NULL,
+ CONSTRAINT [PK_TCarrito] PRIMARY KEY CLUSTERED 
+(
+	[IdCarrito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tDetalle]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tDetalle](
+	[IdDetalle] [bigint] IDENTITY(1,1) NOT NULL,
+	[IdFactura] [bigint] NOT NULL,
+	[IdProducto] [bigint] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Impuesto] [decimal](18, 2) NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_TDetalle] PRIMARY KEY CLUSTERED 
+(
+	[IdDetalle] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tEncabezado]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tEncabezado](
+	[IdFactura] [bigint] IDENTITY(1,1) NOT NULL,
+	[IdUsuario] [bigint] NOT NULL,
+	[FechaPago] [datetime] NOT NULL,
+	[TotalPago] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_TEncabezado] PRIMARY KEY CLUSTERED 
+(
+	[IdFactura] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tErrores]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tErrores](
+	[IdError] [bigint] NOT NULL,
+	[FechaError] [datetime] NULL,
+	[Metodo] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IdError] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tProducto]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tProducto](
+	[IdProducto] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](250) NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+	[Imagen] [varchar](500) NOT NULL,
+	[Cantidad] [int] NULL,
+ CONSTRAINT [PK_TProducto] PRIMARY KEY CLUSTERED 
+(
+	[IdProducto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tReserva]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tReserva](
+	[IdReserva] [bigint] IDENTITY(1,1) NOT NULL,
+	[IdUsuario] [bigint] NOT NULL,
+	[CantidadPersonas] [int] NOT NULL,
+	[FechaReserva] [datetime] NOT NULL,
+	[Estado] [bit] NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_tReserva] PRIMARY KEY CLUSTERED 
+(
+	[IdReserva] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tRol]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tRol](
+	[IdRol] [smallint] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_tRol] PRIMARY KEY CLUSTERED 
+(
+	[IdRol] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tUsuario](
+	[IdUsuario] [bigint] IDENTITY(1,1) NOT NULL,
+	[Correo] [varchar](200) NOT NULL,
+	[Contrasenna] [varchar](200) NOT NULL,
+	[Nombre] [varchar](200) NOT NULL,
+	[IdRol] [smallint] NOT NULL,
+	[Estado] [bit] NOT NULL,
+	[EsTemporal] [bit] NULL,
+ CONSTRAINT [PK_tUsuario] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UK_Correo] UNIQUE NONCLUSTERED 
+(
+	[Correo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[tReserva]  WITH CHECK ADD  CONSTRAINT [FK_tReserva_tUsuario] FOREIGN KEY([IdUsuario])
+REFERENCES [dbo].[tUsuario] ([IdUsuario])
+GO
+ALTER TABLE [dbo].[tReserva] CHECK CONSTRAINT [FK_tReserva_tUsuario]
+GO
+ALTER TABLE [dbo].[tUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tUsuario_tRol] FOREIGN KEY([IdRol])
+REFERENCES [dbo].[tRol] ([IdRol])
+GO
+ALTER TABLE [dbo].[tUsuario] CHECK CONSTRAINT [FK_tUsuario_tRol]
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarPerfil]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarPerfil]
+	@IdUsuario		BIGINT,
+	@NombreUsuario	VARCHAR(200),
+	@Correo			VARCHAR(200),
+	@Contrasenna	VARCHAR(200),
+	@bActualizarClave BIT
+AS
+BEGIN
+
+	UPDATE dbo.tUsuario
+	   SET Correo = @Correo,
+		   Contrasenna = (CASE WHEN @bActualizarClave = 1 THEN @Contrasenna ELSE Contrasenna END),
+		   Nombre = @NombreUsuario
+	 WHERE IdUsuario = @IdUsuario
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarPreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+	CREATE PROCEDURE [dbo].[ActualizarPreguntasFrecuentes]
+    @IdPreguntasFrecuentes int,
+    @Pregunta varchar(1000),
+    @Respuesta varchar(1000)
+AS
+BEGIN
+    UPDATE dbo.PreguntasFrecuentes
+    SET Pregunta = @Pregunta,
+        Respuesta = @Respuesta
+    WHERE IdPreguntasFrecuentes = @IdPreguntasFrecuentes;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarReserva]
+	@IdReserva			BIGINT,
+	@IdUsuario			BIGINT,
+	@CantidadPersonas	INT,
+	@FechaReserva		DATETIME,
+	@Precio				DECIMAL(18,2)
+AS
+BEGIN
+
+	IF NOT EXISTS(	SELECT	1 FROM tReserva 
+					WHERE	IdUsuario = @IdUsuario 
+						AND CONVERT(DATE,FechaReserva) = CONVERT(DATE,@FechaReserva))
+	BEGIN
+
+		UPDATE dbo.tReserva
+		   SET IdUsuario = @IdUsuario,
+			   CantidadPersonas = @CantidadPersonas,
+			   FechaReserva = @FechaReserva,
+			   Precio = @Precio
+		 WHERE IdReserva = @IdReserva
+
+	END
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[CambiarContrasenna]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[CambiarContrasenna]
+	@Correo					VARCHAR(200),
+	@Contrasenna			VARCHAR(200),
+	@ContrasennaTemporal	VARCHAR(200),
+	@EsTemporal				BIT
+AS
+BEGIN
+
+	DECLARE @Consecutivo BIGINT
+
+	SELECT @Consecutivo = IdUsuario
+	FROM	tUsuario
+	WHERE	Correo = @Correo
+		AND Contrasenna = @ContrasennaTemporal
+		AND Estado = 1
+
+	IF(@Consecutivo IS NOT NULL)
+	BEGIN
+		UPDATE	tUsuario
+		SET		Contrasenna = @Contrasenna,
+				EsTemporal  = @EsTemporal
+		WHERE	Correo = @Correo
+	END
+
+	SELECT	IdUsuario,Correo,U.Nombre 'NombreUsuario',U.IdRol,R.Nombre 'NombreRol',Estado
+	FROM	tUsuario U
+	INNER	JOIN tRol R ON U.IdRol = R.IdRol	
+	WHERE	Correo = @Correo
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ConsultarCarrito]
+    @IdUsuario BIGINT
+AS
+BEGIN
+    SELECT IdCarrito,
+           IdUsuario,
+           C.IdProducto,
+           C.Cantidad,
+           Fecha,
+           P.Precio,
+           P.Precio * C.Cantidad 'SubTotal',
+           (P.Precio * C.Cantidad) * 0.13 'Impuesto',
+           P.Precio * C.Cantidad + (P.Precio * C.Cantidad) * 0.13 'Total',
+           P.Nombre
+    FROM dbo.tCarrito C
+    INNER JOIN dbo.tProducto P ON C.IdProducto = P.IdProducto
+    WHERE IdUsuario = @IdUsuario
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarDetalleFactura]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarDetalleFactura]
+    @IdFactura BIGINT
+AS
+BEGIN
+    SELECT D.IdFactura,
+           D.Cantidad,
+           D.Precio,
+           D.Impuesto,
+           D.Precio * D.Cantidad 'SubTotal',
+           (D.Impuesto * D.Cantidad) 'ImpuestoTotal',
+           (D.Precio * D.Cantidad) + (D.Impuesto * D.Cantidad) 'Total',
+           P.Nombre
+    FROM dbo.TDetalle D
+    INNER JOIN dbo.TProducto P ON D.IdProducto = P.IdProducto
+    WHERE IdFactura = @IdFactura
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarFacturas]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarFacturas]
+    @IdUsuario BIGINT
+AS
+BEGIN
+    SELECT IdFactura,
+           FechaPago,
+           TotalPago
+    FROM dbo.TEncabezado
+    WHERE IdUsuario = @IdUsuario
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarProductos]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[ConsultarProductos]
+AS
+BEGIN
+    
+    SELECT * FROM dbo.TProducto;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarReserva]
+	@IdReserva BIGINT
+AS
+BEGIN
+
+	SELECT	R.IdReserva,
+			R.IdUsuario,
+			U.Nombre,
+			R.CantidadPersonas,
+			R.FechaReserva,
+			DATEADD(HOUR,2, R.FechaReserva) 'FechaFinReserva',
+			R.Estado,
+			Precio,
+			(CASE	WHEN 	R.Estado = 1 AND FechaReserva <= GETDATE() THEN 'Finalizada'
+					WHEN	R.Estado = 1 THEN 'Activa' 
+					ELSE 'Cancelada' END) 'EstadoReserva'
+	  FROM dbo.tReserva R
+	  INNER JOIN dbo.tUsuario U ON U.IdUsuario = R.IdUsuario
+	  WHERE R.IdReserva = @IdReserva
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarReservas]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarReservas]
+	@IdUsuario BIGINT
+AS
+BEGIN
+	
+	DECLARE @Rol INT
+	SELECT  @Rol = IdRol
+	FROM	tUsuario
+	WHERE	IdUsuario = @IdUsuario
+
+	SELECT	R.IdReserva,
+			R.IdUsuario,
+			U.Nombre,
+			R.CantidadPersonas,
+			R.FechaReserva,
+			DATEADD(HOUR,2, R.FechaReserva) 'FechaFinReserva',
+			R.Estado,
+			Precio,
+			(CASE	WHEN 	R.Estado = 1 AND FechaReserva <= GETDATE() THEN 'Finalizada'
+					WHEN	R.Estado = 1 THEN 'Activa' 
+					ELSE 'Cancelada' END) 'EstadoReserva'
+	  FROM dbo.tReserva R
+	  INNER JOIN dbo.tUsuario U ON U.IdUsuario = R.IdUsuario
+	  WHERE R.IdUsuario = (CASE WHEN @Rol = 1 THEN @IdUsuario ELSE R.IdUsuario END)
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ConsultarUsuario]
+	@IdUsuario BIGINT
+AS
+BEGIN
+	
+	SELECT	IdUsuario,Correo,U.Nombre 'NombreUsuario',U.IdRol,R.Nombre 'NombreRol',Estado,EsTemporal
+	FROM	tUsuario U
+	INNER	JOIN tRol R ON U.IdRol = R.IdRol
+	WHERE	IdUsuario = @IdUsuario
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EditarProducto]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE   PROCEDURE [dbo].[EditarProducto]
+    @idProducto bigint,
+    @nombre varchar(200),
+    @descripcion varchar(500),
+    @precio decimal(10, 2),
+    @imagen varchar(500),
+    @cantidad int 
+AS
+BEGIN
+    UPDATE dbo.tProducto
+    SET nombre = @nombre,
+        descripcion = @descripcion,
+        precio = @precio,
+        Imagen = @imagen,
+        Cantidad = @cantidad  
+    WHERE IdProducto = @idProducto;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarPreguntaFrecuentePorId]
+    @IdPreguntasFrecuentes int
+AS
+BEGIN
+    DELETE FROM PreguntasFrecuentes
+    WHERE IdPreguntasFrecuentes = @IdPreguntasFrecuentes
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarProductoCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[EliminarProductoCarrito]
+	@IdCarrito AS BIGINT
+AS
+BEGIN
+	
+	DELETE FROM tCarrito
+	WHERE IdCarrito = @IdCarrito
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarProductoPorId]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarProductoPorId]
+    @idProducto bigint
+AS
+BEGIN
+    
+    DELETE FROM dbo.tProducto
+    WHERE IdProducto = @idProducto;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarReserva]
+	@IdReserva BIGINT
+AS
+BEGIN
+
+	DELETE FROM tReserva
+	WHERE IdReserva = @IdReserva
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[IniciarSesion]
+	@Correo			varchar(200),
+	@Contrasenna	varchar(200)
+AS
+BEGIN
+	
+	SELECT	IdUsuario,Correo,U.Nombre 'NombreUsuario',U.IdRol,R.Nombre 'NombreRol',Estado,EsTemporal
+	FROM	tUsuario U
+	INNER	JOIN tRol R ON U.IdRol = R.IdRol
+	WHERE	Correo = @Correo
+		AND Contrasenna = @Contrasenna
+		AND Estado = 1
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ObtenerInventarioPorID]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[ObtenerInventarioPorID]
+	@IdProducto bigint
+AS
+BEGIN
+    SELECT *
+    FROM dbo.tProducto
+    WHERE IdProducto = @IdProducto;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ObtenerPreguntaFrecuentePorId]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ObtenerPreguntaFrecuentePorId]
+    @IdPreguntasFrecuentes int
+AS
+BEGIN
+    SELECT
+        IdPreguntasFrecuentes,
+        IdUsuario,
+        Nombre,
+        Pregunta,
+        Respuesta
+    FROM
+        PreguntasFrecuentes
+    WHERE
+        IdPreguntasFrecuentes = @IdPreguntasFrecuentes;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ObtenerTodasLasPreguntasFrecuentes]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ObtenerTodasLasPreguntasFrecuentes]
+AS
+BEGIN
+  SELECT *
+  FROM dbo.PreguntasFrecuentes
+END
+GO
+/****** Object:  StoredProcedure [dbo].[PagarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[PagarCarrito]
+	@IdUsuario AS BIGINT
+AS
+BEGIN
+	BEGIN TRY	
+
+		BEGIN TRANSACTION
+
+		IF(	SELECT TOP 1  C.Cantidad
+			FROM tCarrito	C
+			INNER	JOIN TProducto P ON C.IdProducto = P.IdProducto
+			WHERE	IdUsuario = @IdUsuario ) < 0
+		BEGIN
+
+			DELETE	C
+			FROM	tCarrito C
+			INNER	JOIN TProducto P ON C.IdProducto = P.IdProducto
+			WHERE	IdUsuario = @IdUsuario
+
+			
+		END
+		ELSE
+		BEGIN
+
+			DECLARE @TotalPago DECIMAL(18,2)
+			DECLARE @CodigoFactura BIGINT
+
+			SELECT	@TotalPago = SUM(P.Precio * C.Cantidad) + (SUM(P.Precio * C.Cantidad) * 0.13)
+			FROM	tCarrito	C
+			INNER	JOIN tProducto P ON C.IdProducto = P.IdProducto
+			WHERE	IdUsuario = @IdUsuario
+
+			INSERT	INTO dbo.tEncabezado(IdUsuario,FechaPago,TotalPago)
+			VALUES	(@IdUsuario,GETDATE(),@TotalPago)
+
+			SET @CodigoFactura = @@IDENTITY
+
+			INSERT	INTO dbo.tDetalle(IdFactura,IdProducto,Cantidad,Impuesto,Precio)
+			SELECT	@CodigoFactura, C.IdProducto, C.Cantidad, (P.Precio * 0.13), P.Precio 
+			FROM	tCarrito	C
+			INNER	JOIN tProducto P ON C.IdProducto = P.IdProducto
+			WHERE	IdUsuario = @IdUsuario
+
+
+			DELETE FROM tCarrito
+			WHERE IdUsuario = @IdUsuario
+
+		END
+		COMMIT TRANSACTION
+		END TRY
+	BEGIN CATCH
+		
+	END CATCH
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RecuperarAcceso]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[RecuperarAcceso]
+	@Correo			VARCHAR(200),
+	@Contrasenna	VARCHAR(200),
+	@EsTemporal		BIT
+AS
+BEGIN
+
+	DECLARE @Consecutivo BIGINT
+
+	SELECT @Consecutivo = IdUsuario
+	FROM	tUsuario
+	WHERE	Correo = @Correo
+		AND Estado = 1
+
+	IF(@Consecutivo IS NOT NULL)
+	BEGIN
+		UPDATE	tUsuario
+		SET		Contrasenna = @Contrasenna,
+				EsTemporal  = @EsTemporal
+		WHERE	Correo = @Correo
+	END
+
+	SELECT	IdUsuario,Correo,U.Nombre 'NombreUsuario',U.IdRol,R.Nombre 'NombreRol',Estado
+	FROM	tUsuario U
+	INNER	JOIN tRol R ON U.IdRol = R.IdRol	
+	WHERE	Correo = @Correo
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarCarrito]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[RegistrarCarrito]
+	@IdUsuario	bigint,
+    @IdProducto	bigint,
+    @Cantidad	int
+AS
+BEGIN
+	
+	IF EXISTS(SELECT 1 FROM tCarrito WHERE IdUsuario = @IdUsuario AND IdProducto = @IdProducto )
+	BEGIN
+		
+		UPDATE dbo.tCarrito
+		   SET Cantidad = @Cantidad
+		 WHERE IdUsuario = @IdUsuario AND IdProducto = @IdProducto
+
+	END
+	ELSE
+	BEGIN
+
+		INSERT INTO dbo.tCarrito(IdUsuario,IdProducto,Cantidad,Fecha)
+		VALUES (@IdUsuario,@IdProducto,@Cantidad,GETDATE())
+
+	END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarPreguntaFrecuente]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+	CREATE PROCEDURE [dbo].[RegistrarPreguntaFrecuente]
+    @IdUsuario bigint,
+    @Pregunta varchar(1000),
+    @Respuesta varchar(1000)
+AS
+BEGIN
+    DECLARE @NombreUsuario varchar(200)
+    SET @NombreUsuario = (SELECT Nombre FROM tUsuario WHERE IdUsuario = @IdUsuario)
+
+    INSERT INTO PreguntasFrecuentes (IdUsuario, Nombre, Pregunta, Respuesta)
+    VALUES (@IdUsuario, @NombreUsuario, @Pregunta, @Respuesta)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarProducto]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarProducto]
+    @nombre varchar(200),
+    @descripcion varchar(500),
+    @precio decimal(10, 2),
+    @imagen varchar(500),
+	@cantidad int 
+AS
+BEGIN
+    INSERT INTO dbo.tProducto (Nombre, Descripcion, Precio, Imagen, cantidad)
+    VALUES (@nombre, @descripcion, @precio, @imagen, @cantidad );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarReserva]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarReserva]
+	@IdUsuario			BIGINT,
+	@CantidadPersonas	INT,
+	@FechaReserva		DATETIME,
+	@Precio				DECIMAL(18,2)
+AS
+BEGIN
+
+	IF NOT EXISTS(	SELECT	1 FROM tReserva 
+					WHERE	IdUsuario = @IdUsuario 
+						AND CONVERT(DATE,FechaReserva) = CONVERT(DATE,@FechaReserva))
+	BEGIN
+
+		INSERT INTO dbo.tReserva (IdUsuario,CantidadPersonas,FechaReserva,Estado,Precio)
+		VALUES (@IdUsuario,@CantidadPersonas,@FechaReserva,1,@Precio)
+
+		UPDATE	tProducto
+		SET		Cantidad = Cantidad - @CantidadPersonas
+
+	END
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 25/4/2024 17:22:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[RegistrarUsuario]
+	@Correo			varchar(200),
+	@Contrasenna	varchar(200),
+	@NombreUsuario	varchar(200)
+AS
+BEGIN
+
+	IF NOT EXISTS(SELECT 1 FROM tUsuario WHERE Correo = @Correo)
+	BEGIN
+
+		INSERT INTO dbo.tUsuario(Correo,Contrasenna,Nombre,IdRol,Estado,EsTemporal)
+	    VALUES(@Correo,@Contrasenna,@NombreUsuario,1,1,0)
+
+	END
+
+END
+GO
