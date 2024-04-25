@@ -7,6 +7,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
+using System.Data.Common;
 
 namespace API_Progra_AvanzadaW.Controllers
 {
@@ -21,7 +22,7 @@ namespace API_Progra_AvanzadaW.Controllers
             _configuration = configuration;
         }
 
-        [Authorize]
+
         [Route("ConsultarProductos")]
         [HttpGet]
         public IActionResult ConsultarProductos()
@@ -156,6 +157,43 @@ namespace API_Progra_AvanzadaW.Controllers
                 return BadRequest("Error al eliminar el producto: " + ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("ObtenerInventarioPorId")]
+        public IActionResult ObtenerInventarioPorId(long q)
+        {
+           
+            long IdProducto = q;
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    ProductoRespuesta respuesta = new ProductoRespuesta();
+
+                    var result = db.Query<Producto>("ObtenerInventarioPorId",
+                        new { IdProducto },
+                        commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        respuesta.Codigo = "-1";
+                        respuesta.Mensaje = "No hay productos registrados.";
+                    }
+                    else
+                    {
+                        respuesta.Dato = result;
+                    }
+
+                    return Ok(respuesta);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error al consultar productos: " + ex.Message);
+            }
+        }
+
 
     }
 }

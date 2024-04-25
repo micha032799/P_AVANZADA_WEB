@@ -8,13 +8,14 @@ using System.Data;
 using Dapper;
 using System.Data.Common;
 using Microsoft.Extensions.Hosting;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API_Progra_AvanzadaW.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController(IUtilitariosModel _utilitariosModel, IConfiguration _configuration,
-                                   IHostEnvironment _hostEnvironment) : ControllerBase
+                                   IHostEnvironment _hostEnvironment, IHttpContextAccessor _httpContextAccessor) : ControllerBase
     {
         [AllowAnonymous]
         [Route("IniciarSesion")]
@@ -36,6 +37,7 @@ namespace API_Progra_AvanzadaW.Controllers
                 }
                 else
                 {
+                    _httpContextAccessor.HttpContext.Session.SetString("IdUsuario", result.IdUsuario.ToString());
                     respuesta.Dato = result;
                     respuesta.Dato.Token = _utilitariosModel.GenerarToken(result.IdUsuario);
                 }
@@ -132,15 +134,14 @@ namespace API_Progra_AvanzadaW.Controllers
             }
         }
 
-        [Authorize]
         [Route("ConsultarUsuario")]
         [HttpGet]
-        public IActionResult ConsultarUsuario()
+        public IActionResult ConsultarUsuario(long q)
         {
             using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 UsuarioRespuesta respuesta = new UsuarioRespuesta();
-                long IdUsuario = long.Parse(_utilitariosModel.Decrypt(User.Identity!.Name!));
+                long IdUsuario = q;
 
                 var result = db.Query<Usuario>("ConsultarUsuario",
                     new { IdUsuario },

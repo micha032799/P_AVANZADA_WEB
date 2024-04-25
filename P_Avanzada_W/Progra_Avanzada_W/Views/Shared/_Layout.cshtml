@@ -12,8 +12,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/template/assets/vendor/fonts/boxicons.css" />
     <link href="~/lib/css/animate.css" rel="stylesheet" />
     <link href="~/lib/css/owl.carousel.css" rel="stylesheet" />
     <link href="~/lib/css/owl.theme.default.min.css" rel="stylesheet" />
@@ -34,7 +37,7 @@
 
 
 
-    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top custom-navbar">
         <div class="container">
 
             <div class="navbar-header">
@@ -61,16 +64,54 @@
                     </li>
                     <li><a href="@Url.Action("ObtenerTodasLasPreguntasFrecuentes","PreguntasFrecuentes")">Ver Preguntas Frecuentes</a></li>
                     <li><a href="@Url.Action("Salir","Home")" class="smoothScroll">Salir</a></li>
-                </ul>
+                    <li>
+                        <div style="margin-left:2%" class="container-xxl navbar navbar-expand-xl  align-items-center">
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @Context.Session.GetString("Cantidad").ToString()
+                            <br />
+                            <box-icon name='spreadsheet' color='#626161'></box-icon> @decimal.Parse(Context.Session.GetString("Total")).ToString("N2").ToString() + ivi
+                        </div>
+                    </li>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">LLame ahora! <i class="fa fa-phone"></i> 2210-2525</a></li>
-                    <a href="#footer" class="section-btn">Reserve</a>
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <i class="bi bi-person-fill me-2"></i>
+                            <span class="align-middle">@Context.Session.GetString("Nombre")?.ToUpper()</span>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("PantallaPrincipal", "Home")">Pantalla Principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ConsultarPerfil", "Usuario")">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ConsultarProductos", "Producto")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#menu">Menú</a>
+                    </li>
+                    <li class="@(Context.Session.GetString("NombreRol") != null && Context.Session.GetString("NombreRol") == "Trabajador Administrativo" ? "" : "hidden")">
+                        <a href="@Url.Action("RegistrarPreguntaFrecuente","PreguntasFrecuentes")">Ingresar Pregunta Frecuente</a>
+                    </li>
+                    <li><a href="@Url.Action("ObtenerTodasLasPreguntasFrecuentes","PreguntasFrecuentes")">Ver Preguntas Frecuentes</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link" href="@Url.Action("ConsultarCarrito","Carrito")">
+                            <i class="bi bi-cart me-2"></i>
+                            Pagar Carrito
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Salir","Home")">Salir</a>
+                    </li>
                 </ul>
+                <span class="navbar-text">
+                    <i class="bi bi-telephone me-2"></i>
+                    LLame ahora! 2210-2525
+                </span>
             </div>
-
         </div>
-    </section>
+    </nav>
 
 
 
