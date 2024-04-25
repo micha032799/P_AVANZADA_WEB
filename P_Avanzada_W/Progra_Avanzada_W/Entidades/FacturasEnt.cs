@@ -1,4 +1,4 @@
-﻿namespace Progra_Avanzada_W.Entities
+﻿namespace Progra_Avanzada_W.Entidades
 {
     public class FacturasEnt
     {
@@ -13,5 +13,21 @@
         public decimal ImpuestoTotal { get; set; }
         public decimal Total { get; set; }
         public string Nombre { get; set; } = string.Empty;
+
+        public class FacturaRespuesta
+        {
+            public FacturaRespuesta()
+            {
+                Codigo = "00";
+                Mensaje = string.Empty;
+                Dato = null;
+                Datos = null;
+            }
+
+            public string Codigo { get; set; }
+            public string Mensaje { get; set; }
+            public FacturasEnt? Dato { get; set; }
+            public List<FacturasEnt>? Datos { get; set; }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Progra_Avanzada_W.Entities
+﻿namespace Progra_Avanzada_W.Entidades
 {
     public class BitacoraEnt
     {

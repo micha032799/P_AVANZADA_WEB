@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using API_Progra_AvanzadaW.Entities;
+using API_Progra_AvanzadaW.Entidades;
 using System.Data.SqlClient;
 using System.Data;
 using Dapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace API_Progra_AvanzadaW.Controllers
 {
@@ -39,11 +40,17 @@ namespace API_Progra_AvanzadaW.Controllers
 
                 using (var context = new SqlConnection(_connection))
                 {
-                    var datos = context.Execute("RegistrarCarrito",
+                    Respuesta respuesta = new Respuesta();
+                    var result = context.Execute("RegistrarCarrito",
                         new { IdUsuario, entidad.IdProducto, entidad.Cantidad },
                         commandType: CommandType.StoredProcedure);
+                    if (result <= 0)
+                    {
+                        respuesta.Codigo = "-1";
+                        respuesta.Mensaje = "Este producto ya se encuentra registrado.";
+                    }
 
-                    return Ok(datos);
+                    return Ok(respuesta);
                 }
             }
             catch (Exception ex)
@@ -120,11 +127,19 @@ namespace API_Progra_AvanzadaW.Controllers
 
                 using (var context = new SqlConnection(_connection))
                 {
-                    var datos = context.Execute("EliminarProductoCarrito",
+                    Respuesta respuesta = new Respuesta();
+
+                    var result = context.Execute("EliminarProductoCarrito",
                         new { IdCarrito },
                         commandType: CommandType.StoredProcedure);
 
-                    return Ok(datos);
+                    if (result <= 0)
+                    {
+                        respuesta.Codigo = "-1";
+                        respuesta.Mensaje = "Este producto ya se encuentra registrado.";
+                    }
+
+                    return Ok(respuesta);
                 }
             }
             catch (Exception ex)

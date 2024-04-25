@@ -1,8 +1,81 @@
-﻿
+﻿@model List<Progra_Avanzada_W.Entidades.Producto>
+
 @{
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
-    ViewData["Title"] = "Pantalla Principal";
+    ViewData["Title"] = "PantallaPrincipal";
 }
 
+<div class="row">
+ @if (Model != null)
+{
+        @foreach (var item in Model)
+        {
+            <div class="col-3">
+                <div class="card product-card">
+                    <img src="@item.imagen" class="card-img-top" alt="@item.nombre">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@item.nombre</h5>
+                        <p class="card-text">@item.descripcion</p>
+                        <p class="card-text product-price">¢@item.precio.ToString("N2")</p>
+                        @if (Context.Session.GetString("Nombre") != null)
+                        {
+                            <div class="mt-auto d-flex align-items-center">
+                                <div class="quantity-input me-3">
+                                    <input type="number" maxlength="1" class="form-control" id=cnt-@item.IdProducto>
+                                </div>
+                                @if (Context.Session.GetString("IdRol") == "1" || Context.Session.GetString("IdRol") == "2")
+                                {
+                                    <div>
+                                        <a onclick="AgregarCarrito(@item.IdProducto)" class="btn btn-primary btn-block">
+                                            <i class="bi bi-cart-plus"></i> Agregar
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+  }
+  else
+  {
+        <div class="col-12" style="text-align:center; margin-top:5%; font-size:16pt">
+            No hay productos disponibles en este momento
+        </div>
+  }
+</div>
 
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+
+    function AgregarCarrito(IdProducto, Disponibles) {
+        let cantidadComprar = $("#cnt-" + IdProducto).val();
+
+        if (cantidadComprar == null) {
+
+            Swal.fire({
+                type: 'error',
+                title: 'Información',
+                text: 'La cantidad ingresada supera las unidades disponibles'
+            })
+
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Carrito/RegistrarCarrito",
+                dataType: "json",
+                data: {
+                    "IdProducto": IdProducto,
+                    "cantidadComprar": cantidadComprar
+                },
+                success: function (result) {
+                    window.location.href = '@Url.Action("PantallaPrincipal", "Home")'
+                }
+            });
+        }
+    }
+
+</script>
 

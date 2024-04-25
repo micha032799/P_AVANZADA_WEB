@@ -1,96 +1,100 @@
-﻿using Progra_Avanzada_W.Entities;
+﻿using Progra_Avanzada_W.Entidades;
+using Progra_Avanzada_W.Services;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
+using static System.Net.WebRequestMethods;
+using static Progra_Avanzada_W.Entidades.FacturasEnt;
 
 namespace Progra_Avanzada_W.Models
 {
-    public class CarritoModel : ICarritoModel
+    public class CarritoModel(HttpClient _http, IConfiguration _configuration,
+                               IHttpContextAccessor _sesion) : ICarritoModel
     {
-        private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _HttpContextAccessor;
         private string _urlApi;
 
-        public CarritoModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public Respuesta? RegistrarCarrito(CarritoEnt entidad)
         {
-            _httpClient = httpClient;
-            _configuration = configuration;
-            _HttpContextAccessor = httpContextAccessor;
-            _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
-        }
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/RegistrarCarrito";
 
-        public long RegistrarCarrito(CarritoEnt entidad)
-        {
-            string url = _urlApi + "api/Carrito/RegistrarCarrito";
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
 
-            JsonContent obj = JsonContent.Create(entidad);
-            var resp = _httpClient.PostAsync(url, obj).Result;
+            JsonContent body = JsonContent.Create(entidad);
+
+            var resp = _http.PostAsync(url, body).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<long>().Result;
-            else
-                return 0;
+                return resp.Content.ReadFromJsonAsync<Respuesta>().Result;
+
+            return null;
         }
 
         public List<CarritoEnt>? ConsultarCarrito()
         {
-            string url = _urlApi + "api/Carrito/ConsultarCarrito";
-            var resp = _httpClient.GetAsync(url).Result;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/ConsultarCarrito";
+            string test = _sesion.HttpContext?.Session.GetString("Token");
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+            var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<List<CarritoEnt>>().Result;
+                return resp.Content.ReadFromJsonAsync<List<CarritoEnt>?>().Result;
             else
                 return null;
         }
 
-        public string PagarCarrito()
+        public Respuesta? PagarCarrito()
         {
-            var entidad = new CarritoEnt();
-            string url = _urlApi + "api/Carrito/PagarCarrito";
-            
-            JsonContent obj = JsonContent.Create(entidad);
-            var resp = _httpClient.PostAsync(url, obj).Result;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/PagarCarrito";
+
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+
+            var resp = _http.PostAsync(url, null).Result;
 
             if (resp.IsSuccessStatusCode)
-                //return resp.Content.ReadFromJsonAsync<string>().Result;
-                return resp.Content.ReadAsStringAsync().Result;
-            else
-                return string.Empty;
+                return resp.Content.ReadFromJsonAsync<Respuesta>().Result;
+
+            return null;
         }
 
-        public int EliminarProductoCarrito(long q)
+        public Respuesta? EliminarProductoCarrito(long q)
         {
-            string url = _urlApi + "api/Carrito/EliminarProductoCarrito?q=" + q;
-            
-            var resp = _httpClient.DeleteAsync(url).Result;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/EliminarProductoCarrito?q=" + q;
+
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+
+            var resp = _http.DeleteAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<int>().Result;
-            else
-                return 0;
+                return resp.Content.ReadFromJsonAsync<Respuesta>().Result;
+
+            return null;
         }
 
-        public List<FacturasEnt>? ConsultarFacturas()
+        public FacturaRespuesta? ConsultarFacturas()
         {
-            string url = _urlApi + "api/Carrito/ConsultarFacturas";
-            
-            var resp = _httpClient.GetAsync(url).Result;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/ConsultarFacturas";
+
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+
+            var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<List<FacturasEnt>>().Result;
-            else
-                return null;
+                return resp.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
+
+            return null;
         }
 
-        public List<FacturasEnt>? ConsultarDetalleFactura(long q)
+        public FacturaRespuesta? ConsultarDetalleFactura(long q)
         {
-            string url = _urlApi + "api/Carrito/ConsultarDetalleFactura?q=" + q;
-            
-            var resp = _httpClient.GetAsync(url).Result;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/ConsultarDetalleFactura?q=" + q;
+
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sesion.HttpContext?.Session.GetString("Token"));
+
+            var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<List<FacturasEnt>>().Result;
-            else
-                return null;
+                return resp.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
+
+            return null;
         }
     }
 }

@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Progra_Avanzada_W.Entities;
-using Progra_Avanzada_W.Models;
+using Progra_Avanzada_W.Entidades;
 using Progra_Avanzada_W.Services;
 
-namespace ProyectoWeb.Controllers
+namespace Progra_Avanzada_W.Controllers
 {
     public class CarritoController : Controller
     {
         private readonly ICarritoModel _carritoModel;
         private readonly IBitacoraModel _bitacoraModel;
 
-        public CarritoController(ICarritoModel carritoModel, IBitacoraModel bitacoraModel)
+        private readonly IProductoModel _productoModel;
+        private readonly IUsuarioModel _usuarioModel;
+
+        public CarritoController(ICarritoModel carritoModel, IBitacoraModel bitacoraModel, IProductoModel productoModel, IUsuarioModel usuarioModel)
         {
             _carritoModel = carritoModel;
             _bitacoraModel = bitacoraModel;
+            _productoModel = productoModel;
+            _usuarioModel = usuarioModel;
         }
 
         [HttpPost]
@@ -36,7 +40,25 @@ namespace ProyectoWeb.Controllers
         public IActionResult ConsultarCarrito()
         {
             var datos = _carritoModel.ConsultarCarrito();
-            return View(datos);
+
+            if (datos == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                foreach (var item in datos)
+                {
+                    var usuario = _usuarioModel.ConsultarUsuario(item.IdUsuario);
+                    var producto = _productoModel.ObtenerInventarioPorId(item.IdProducto);
+
+                    item.nomProducto = (producto != null) ? producto.Dato.nombre : "";
+                    item.nomUsuario = (usuario != null) ? usuario.Dato.NombreUsuario : "";
+
+                }
+                datos = datos.OrderBy(s => s.Fecha).ToList();
+                return View(datos);
+            }
         }
 
         [HttpPost]
@@ -49,7 +71,7 @@ namespace ProyectoWeb.Controllers
                 HttpContext.Session.SetString("Total", datos.Sum(x => x.Total).ToString());
                 HttpContext.Session.SetString("Cantidad", datos.Sum(x => x.Cantidad).ToString());
 
-                if (respuesta.Contains("verifique"))
+                if (respuesta.Mensaje.Contains("verifique"))
                 {
                     ViewBag.MensajePantalla = respuesta;
                     return View("ConsultarCarrito", datos);

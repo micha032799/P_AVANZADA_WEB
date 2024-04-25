@@ -1,4 +1,4 @@
-﻿namespace API_Progra_AvanzadaW.Entities
+﻿namespace API_Progra_AvanzadaW.Entidades
 {
     public class FacturasEnt
     {

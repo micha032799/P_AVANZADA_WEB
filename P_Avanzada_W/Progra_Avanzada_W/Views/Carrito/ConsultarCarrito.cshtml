@@ -1,4 +1,4 @@
-﻿@model List<Progra_Avanzada_W.Entities.CarritoEnt>
+﻿@model List<Progra_Avanzada_W.Entidades.CarritoEnt>
 @{
     ViewData["Title"] = "ConsultarCarrito";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,6 +17,7 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Nombre usuario</th>
                         <th>Cantidad</th>
                         <th>Precio Unitario</th>
 
@@ -30,20 +31,24 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Nombre</td>
-
+                            <td>@item.nomProducto</td>
+                            <td>@item.nomUsuario</td>
                             <td>@item.Cantidad</td>
                             <td>@item.Precio.ToString("N2")</td>
                             <td>@item.SubTotal.ToString("N2")</td>
                             <td>@item.Impuesto.ToString("N2")</td>
                             <td>@item.Total.ToString("N2")</td>
-                            <td style="text-align:center"><a href="@Url.Action("EliminarProductoCarrito","Carrito", new { q = item.IdCarrito })"><box-icon style="height:50px; width:50px" type='solid' name='checkbox-minus'></box-icon></a></td>
+                            <td style="text-align:center">
+                                <a href="@Url.Action("EliminarProductoCarrito","Carrito", new { q = item.IdCarrito })">
+                                    <i class="bi bi-dash-square" style="font-size: 2rem;"></i>
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
 
-            @if (Context.Session.GetString("Total") != "0")
+@*             @if (Context.Session.GetString("Total") != "0")
             {
 
                 <div class="row" style="margin-top:2%">
@@ -59,7 +64,7 @@
                     </div>
                 </div>
 
-            }
+            } *@
 
 
         </div>
@@ -76,3 +81,5 @@
         });
     });
 </script>
+
+

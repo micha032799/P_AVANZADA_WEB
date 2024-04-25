@@ -12,6 +12,15 @@ string SecretKey = config["settings:SecretKey"].ToString();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+// Session set up
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Configura el tiempo de espera de la sesión
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 //ADD INTERFACES
 builder.Services.AddSingleton<IUtilitariosModel, UtilitariosModel>();
@@ -60,5 +69,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSession();
 
 app.Run();

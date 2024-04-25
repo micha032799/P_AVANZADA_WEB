@@ -12,8 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link href="~/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="~/lib/css/animate.css" rel="stylesheet" />
     <link href="~/lib/css/owl.carousel.css" rel="stylesheet" />
     <link href="~/lib/css/owl.theme.default.min.css" rel="stylesheet" />
@@ -35,7 +41,7 @@
 
 
 
-    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top custom-navbar">
         <div class="container">
 
             <div class="navbar-header">
@@ -70,12 +76,52 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-expanded="false" aria-controls="ui-basic" href="@Url.Action("ConsultarCarrito","Carrito")">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Pagar Carrito</span>
+                        <a class="nav-link">
+                            <i class="bi bi-person-fill me-2"></i>
+                            <span class="align-middle">@Context.Session.GetString("Nombre")?.ToUpper()</span>
                         </a>
-
                     </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("PantallaPrincipal", "Home")">Pantalla Principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ConsultarPerfil", "Usuario")">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ConsultarProductos", "Producto")">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#menu">Menú</a>
+                    </li>
+                    <li class="@(Context.Session.GetString("NombreRol") != null && Context.Session.GetString("NombreRol") == "Trabajador Administrativo" ? "" : "hidden")">
+                        <a href="@Url.Action("RegistrarPreguntaFrecuente","PreguntasFrecuentes")">Ingresar Pregunta Frecuente</a>
+                    </li>
+                    <li><a href="@Url.Action("ObtenerTodasLasPreguntasFrecuentes","PreguntasFrecuentes")">Ver Preguntas Frecuentes</a></li>
+                    <li><a href="@Url.Action("Salir","Home")" class="smoothScroll">Salir</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-link" href="@Url.Action("ConsultarCarrito","Carrito")">
+                            <i class="bi bi-cart me-2"></i>
+                            Pagar Carrito
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Salir","Home")">Salir</a>
+                    </li>
+                    <li>
+                        <a class="nav-link cart-link">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                            @Context.Session.GetString("Cantidad").ToString()
+                        </a>
+                        
+                    </li>
+                    <li>
+                        <a class="nav-link cart-link">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                            @(decimal.TryParse(Context.Session.GetString("Total"), out decimal total) ? total.ToString("N2") : "0.00")
+                        </a>
+                    </li>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -164,84 +210,11 @@
 
             </div>
         </div>
-    </section>
+    </nav>
 
-
-
-    <section id="team" data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-12">
-                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                        <h2>Nuestros chef</h2>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="~/lib/images/team-image1.jpg" class="img-responsive" alt="">
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Estoy para servirte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-linkedin-square"></a></li>
-                                    <li><a href="#" class="fa fa-envelope-o"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Linda Rosales</h3>
-                        <p>"Soy un especialista en mariscos y pescados con una profunda pasión por los productos del mar"</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <img src="~/lib/images/team-image2.jpg" class="img-responsive" alt="">
-
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Es un gusto atenderte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-instagram"></a></li>
-                                    <li><a href="#" class="fa fa-flickr"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Daniela Ureña</h3>
-                        <p>"Soy un especialista en comida asiática"</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <img src="~/lib/images/team-image3.jpg" class="img-responsive" alt="">
-
-                        <div class="team-hover">
-                            <div class="team-item">
-                                <h4>¡Es un gusto atenderte!</h4>
-                                <ul class="social-icon">
-                                    <li><a href="#" class="fa fa-github"></a></li>
-                                    <li><a href="#" class="fa fa-google"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3>Isabella Arias</h3>
-                        <p>"Soy un especialista en repostería"</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
+    <br />
+    <br />
+    <br />
 
     <section id="menu" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -259,116 +232,7 @@
                     </main>
                 </div>
 
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image1.jpg" class="image-popup" title="American Breakfast">
-                            <img src="~/lib/images/menu-image1.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Desayuno Americano</h3>
-                                    <p>Tomate / Huevos / Sándwich</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$25</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image2.jpg" class="image-popup" title="Self-made Salad">
-                            <img src="~/lib/images/menu-image2.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Ensalada</h3>
-                                    <p>Lechuga / Tomate / Limón</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$18</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image3.jpg" class="image-popup" title="Chinese Noodle">
-                            <img src="~/lib/images/menu-image3.jpg" class="img-responsive" alt="">
-
-
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Fideos chinos</h3>
-                                    <p>Fideos / Pollo / Vegetales</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$34</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image4.jpg" class="image-popup" title="Rice Soup">
-                            <img src="~/lib/images/menu-image4.jpg" class="img-responsive" alt="">
-
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Sopa de pollo </h3>
-                                    <p>Vegetales / Pollo</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$28</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image5.jpg" class="image-popup" title="Project title">
-                            <img src="~/lib/images/menu-image5.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Hamburguesa</h3>
-                                    <p>Carne angus / Papas fritas</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$46</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="menu-thumb">
-                        <a href="images/menu-image6.jpg" class="image-popup" title="Project title">
-                            <img src="~/lib/images/menu-image6.jpg" class="img-responsive" alt="">
-                            <div class="menu-info">
-                                <div class="menu-item">
-                                    <h3>Pasta en salsa alfredo</h3>
-                                    <p>Hongos / Queso</p>
-                                </div>
-                                <div class="menu-price">
-                                    <span>$30</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                
 
 
             </div>
@@ -432,5 +296,6 @@
     <script src="~/lib/js/jquery.magnific-popup.min.js"></script>
     <script src="~/lib/js/smoothscroll.js"></script>
     <script src="~/lib/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

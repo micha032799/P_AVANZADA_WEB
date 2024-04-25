@@ -12,7 +12,7 @@ namespace Progra_Avanzada_W.Services
 
         UsuarioRespuesta? CambiarContrasenna(Usuario entidad);
 
-        UsuarioRespuesta? ConsultarUsuario();
+        UsuarioRespuesta? ConsultarUsuario(long q);
 
         Respuesta? ActualizarPerfil(Usuario entidad);
     }
