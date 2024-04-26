@@ -70,13 +70,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("ConsultarPerfil", "Usuario")">Perfil</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="@(Context.Session.GetString("IdRol") != null && Context.Session.GetString("IdRol") == "2" ? "" : "hidden")">
                         <a class="nav-link" href="@Url.Action("ConsultarProductos", "Producto")">Productos</a>
                     </li>
                     <li><a href="@Url.Action("ConsultarReservas", "Reserva")" class="smoothScroll">Reservas</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#menu">Menú</a>
-                    </li>
                     <li class="@(Context.Session.GetString("NombreRol") != null && Context.Session.GetString("NombreRol") == "Trabajador Administrativo" ? "" : "hidden")">
                         <a href="@Url.Action("RegistrarPreguntaFrecuente","PreguntasFrecuentes")">Ingresar Pregunta Frecuente</a>
                     </li>
